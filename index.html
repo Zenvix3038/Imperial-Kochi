@@ -6,12 +6,7 @@
     <title>Imperial Kochi - Call Driver Service</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #003366;
-            --accent-color: #f39c12;
-            --bg-color: #f4f7f6;
-            --card-bg: #ffffff;
-        }
+        :root { --primary-color: #003366; --accent-color: #f39c12; --bg-color: #f4f7f6; --card-bg: #ffffff; }
         body { font-family: 'Poppins', sans-serif; background-color: var(--bg-color); margin: 0; padding: 0; color: #333; }
         header { background-color: var(--primary-color); color: white; padding: 20px; text-align: center; position: relative; }
         .lang-switch { position: absolute; top: 10px; right: 10px; }
@@ -69,25 +64,13 @@
     <div class="booking-form">
         <h2 id="form-title">Book a Driver</h2>
         <form id="bookingForm">
-            <div class="form-group">
-                <label id="lbl-name">Name (പേര്):</label>
-                <input type="text" name="name" id="in-name" placeholder="Enter name" required>
-            </div>
-            <div class="form-group">
-                <label id="lbl-phone">Mobile Number (മൊബൈൽ):</label>
-                <input type="tel" name="phone" id="in-phone" placeholder="808900xxxx" required>
-            </div>
-            <div class="form-group">
-                <label id="lbl-date">Booking Date (തിയതി):</label>
-                <input type="date" name="bookingDate" required>
-            </div>
-            <div class="form-group">
-                <label id="lbl-time">Booking Time (സമയം):</label>
-                <input type="time" name="bookingTime" required>
-            </div>
+            <div class="form-group"><label id="lbl-name">Name (പേര്):</label><input type="text" name="name" required></div>
+            <div class="form-group"><label id="lbl-phone">Mobile Number (മൊബൈൽ):</label><input type="tel" name="phone" required></div>
+            <div class="form-group"><label id="lbl-date">Booking Date (തിയതി):</label><input type="date" name="bookingDate" required></div>
+            <div class="form-group"><label id="lbl-time">Booking Time (സമയം):</label><input type="time" name="bookingTime" required></div>
             <div class="form-group">
                 <label id="lbl-pkg">Select Package (പാക്കേജ്):</label>
-                <select name="package" id="in-pkg" required>
+                <select name="package" required>
                     <option value="" id="opt-choose">-- Choose --</option>
                     <option value="4h - Mini">4 Hours (Mini)</option>
                     <option value="8h - Full Day">8 Hours (Full Day)</option>
@@ -95,15 +78,10 @@
                     <option value="24h - Per Day">24 Hours (Per Day)</option>
                 </select>
             </div>
-            <div class="form-group">
-                <label id="lbl-msg">Notes (മറ്റ് വിവരങ്ങൾ):</label>
-                <textarea name="message" id="in-msg" rows="3" placeholder="Location or notes"></textarea>
-            </div>
+            <div class="form-group"><label id="lbl-msg">Notes (മറ്റ് വിവരങ്ങൾ):</label><textarea name="message" rows="3"></textarea></div>
             <button type="submit" id="submitBtn">Submit Booking</button>
         </form>
-        <div class="extra-info" id="extra-info-text">
-            • 10 PM - 6 AM: ₹150 നൈറ്റ് ചാർജ്.<br>• വെയിറ്റിംഗ് ടൈം: 15 മിനിറ്റിന് ശേഷം മിനിറ്റിന് ₹2.<br>• ക്യാൻസലേഷൻ: ₹100.
-        </div>
+        <div class="extra-info" id="extra-info-text">• 10 PM - 6 AM: ₹150 നൈറ്റ് ചാർജ്.<br>• വെയിറ്റിംഗ് ടൈം: 15 മിനിറ്റിന് ശേഷം ₹2/min.<br>• ക്യാൻസലേഷൻ: ₹100.</div>
     </div>
 </div>
 
@@ -138,29 +116,15 @@
         document.getElementById('extra-info-text').innerHTML = t.extraInfo;
     }
 
-    // ശരിയായ URL താഴെ നൽകുന്നു (ബാക്ക്‌സ്ലാഷ് നീക്കം ചെയ്തു)
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxU84eFJhs4MupJCnZQZUlHBsNFan5eFyaxv16pPoLCaL1c_1GFsjlE03ldeGVgg3J7/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxKZPURAAi6mni6VvSinMM9xsazV9XnEOICkdUkf38X4CKjxmv5bBMGlx3IIWLSyU2B/exec';
     const form = document.getElementById('bookingForm');
     const btn = document.getElementById('submitBtn');
 
     form.addEventListener('submit', e => {
-        e.preventDefault();
-        btn.disabled = true;
-        btn.innerText = 'Processing...';
-
+        e.preventDefault(); btn.disabled = true; btn.innerText = 'Processing...';
         fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-            .then(response => {
-                alert(translations[currentLang].alertSuccess);
-                form.reset();
-                btn.disabled = false;
-                btn.innerText = translations[currentLang].submitBtn;
-            })
-            .catch(error => {
-                console.error('Error!', error.message);
-                alert(translations[currentLang].alertError);
-                btn.disabled = false;
-                btn.innerText = translations[currentLang].submitBtn;
-            });
+            .then(res => { alert(translations[currentLang].alertSuccess); form.reset(); btn.disabled = false; btn.innerText = translations[currentLang].submitBtn; })
+            .catch(err => { alert(translations[currentLang].alertError); btn.disabled = false; btn.innerText = translations[currentLang].submitBtn; });
     });
 </script>
 </body>
