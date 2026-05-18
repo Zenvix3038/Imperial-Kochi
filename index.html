@@ -29,7 +29,6 @@
             position: relative;
         }
 
-        /* Language Switcher Style */
         .lang-switch {
             position: absolute;
             top: 10px;
@@ -168,7 +167,6 @@
 </header>
 
 <div class="container">
-    <!-- Rate Card Section -->
     <div class="rate-card">
         <h2 id="rate-card-title">Driver Rate Card</h2>
         <table>
@@ -200,7 +198,6 @@
         <p id="extra-hour-note" style="font-size: 13px; color: #666; margin-top: 10px;">* അധിക സമയം: ഒരു മണിക്കൂറിന് ₹100 വീതം.</p>
     </div>
 
-    <!-- Booking Form Section -->
     <div class="booking-form">
         <h2 id="form-title">Book a Driver</h2>
         <form id="bookingForm">
@@ -245,7 +242,6 @@
 </div>
 
 <script>
-    // Translation Data
     const translations = {
         ml: {
             subTitle: "വിശ്വസ്തരായ ഡ്രൈവർമാർ ഇനി നിങ്ങളുടെ വിരൽത്തുമ്പിൽ",
@@ -344,7 +340,7 @@
         document.getElementById('extra-info-text').innerHTML = t.extraInfo;
     }
 
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwTQgqjaEM6uBdn2u-B5DL3Y0gaWpw05f0RcjxBBVciqOO656fTL97g3qbscFznzR0S/exec'
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxU84eFJhs4MupJCnZQZUlHBsNFan5eFyaxv16pPoLCaL1c_1GFsjlE03ldeGVgg3J7/exec'
     const form = document.getElementById('bookingForm')
     const btn = document.getElementById('submitBtn')
 
@@ -367,6 +363,3 @@
                 btn.innerText = translations[currentLang].submitBtn
             })
     })
-</script>
-</body>
-</html>
