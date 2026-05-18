@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Imperial Kochi - Call Driver Service</title>
-    <!-- Tailwind CSS for Professional Design -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { font-family: 'Poppins', sans-serif; background: #f4f7f6; }
@@ -16,7 +14,6 @@
 </head>
 <body>
 
-    <!-- Header / Hero Section -->
     <header class="hero-bg text-white py-12 px-6 text-center shadow-lg relative overflow-hidden">
         <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
         <h1 class="text-4xl md:text-5xl font-extrabold mb-2 tracking-wide"><i class="fas fa-car-side mr-3 text-yellow-400 animate-bounce"></i>Imperial Kochi</h1>
@@ -29,11 +26,9 @@
 
     <main class="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 lg:grid-cols-2 gap-8">
         
-        <!-- Left Column: Rate Card -->
         <section class="space-y-6">
             <h2 class="text-2xl font-bold text-gray-800 border-b-4 border-blue-600 pb-2 mb-4"><i class="fas fa-tags text-blue-600 mr-2"></i>Driver Rate Card</h2>
             
-            <!-- Regular Packages -->
             <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 card-hover">
                 <h3 class="text-lg font-bold text-blue-800 mb-3"><i class="far fa-clock mr-2"></i>1. റെഗുലർ പാക്കേജുകൾ (Local & Outstation)</h3>
                 <div class="overflow-x-auto">
@@ -54,7 +49,6 @@
                 <p class="text-xs text-red-500 mt-3 font-medium"><i class="fas fa-info-circle mr-1"></i>അഡീഷണൽ സമയം: പാക്കേജ് സമയം കഴിഞ്ഞാൽ ഓരോ മണിക്കൂറിനും ₹100 വീതം അഡീഷണൽ.</p>
             </div>
 
-            <!-- Multi-Day Packages -->
             <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 card-hover">
                 <h3 class="text-lg font-bold text-blue-800 mb-2"><i class="far fa-calendar-alt mr-2"></i>2. മൾട്ടി-ഡേ പാക്കേജ് (തുടർച്ചയായ ദിവസങ്ങൾക്ക്)</h3>
                 <div class="flex justify-between items-center bg-yellow-50 p-3 rounded-xl border border-yellow-100">
@@ -64,96 +58,8 @@
                 <p class="text-xs text-gray-600 mt-2 leading-relaxed"><i class="fas fa-utensils mr-1"></i><strong>ഭക്ഷണവും താമസവും:</strong> കൊച്ചിക്ക് പുറത്തേക്കാണെങ്കിൽ താമസ സൗകര്യവും ഭക്ഷണവും (അല്ലെങ്കിൽ ഭക്ഷണത്തിനായി ദിവസം ₹200 ബാത്ത) കസ്റ്റമർ നൽകണം.</p>
             </div>
 
-            <!-- Extra Charges -->
-            <div class="bg-gradient-to-br fv from-gray-900 to-blue-950 text-white p-6 rounded-2xl shadow-md card-hover">
+            <div class="bg-gradient-to-br from-gray-900 to-blue-950 text-white p-6 rounded-2xl shadow-md card-hover">
                 <h3 class="text-lg font-bold text-yellow-400 mb-3"><i class="fas fa-exclamation-triangle mr-2"></i>എക്സ്ട്രാ ചാർജുകൾ</h3>
                 <ul class="space-y-3 text-sm text-gray-300">
                     <li class="flex items-start"><i class="fas fa-moon text-yellow-400 mt-1 mr-2 text-xs"></i><span><strong>നൈറ്റ് ചാർജ് (10 PM - 6 AM):</strong> ഒരൊറ്റത്തവണ അഡീഷണലായി ₹150.</span></li>
-                    <li class="flex items-start"><i class="fas fa-hourglass-half text-yellow-400 mt-1 mr-2 text-xs"></i><span><strong>വെയിറ്റിംഗ് ടൈം:</strong> ആദ്യ 15 മിനിറ്റ് ഫ്രീ. ശേഷം ഓരോ മിനിറ്റിനും ₹2 വീതം.</span></li>
-                    <li class="flex items-start"><i class="fas fa-ban text-yellow-400 mt-1 mr-2 text-xs"></i><span><strong>ക്യാൻസലേഷൻ ഫീ:</strong> ലൊക്കേഷനിൽ എത്തിയ ശേഷം ക്യാൻസൽ ചെയ്താൽ ₹100.</span></li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Right Column: Booking Form -->
-        <section>
-            <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100 sticky top-6">
-                <h2 class="text-2xl font-bold text-gray-800 mb-2"><i class="fas fa-file-signature text-blue-600 mr-2"></i>Book a Driver</h2>
-                <p class="text-sm text-gray-500 mb-6">താഴെ പറയുന്ന വിവരങ്ങൾ പൂരിപ്പിച്ചു സബ്മിറ്റ് ചെയ്യുക.</p>
-                
-                <!-- REPLACE 'YOUR_GOOGLE_SCRIPT_URL' WITH YOUR ACTUAL WEB APP URL -->
-                <form id="driverBookingForm" method="POST" action="YOUR_GOOGLE_SCRIPT_URL" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">പേര് (Name)</label>
-                        <input type="text" name="name" required class="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm" placeholder="നിങ്ങളുടെ പേര് എഴുതുക">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">മൊബൈൽ നമ്പർ (WhatsApp Number)</label>
-                        <input type="tel" name="phone" required class="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm" placeholder="9876543210">
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">തീയതി (Date)</label>
-                            <input type="date" name="date" required class="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">സമയം (Time)</label>
-                            <input type="time" name="time" required class="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">ലൊക്കേഷൻ (Pickup Location)</label>
-                        <input type="text" name="location" required class="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm" placeholder="എവിടെ നിന്നാണ് വണ്ടി എടുക്കേണ്ടത്?">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">ആവശ്യമായ പാക്കേജ് (Package)</label>
-                        <select name="package" required class="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm bg-white">
-                            <option value="4 Hours (Mini)">4 മണിക്കൂർ (Mini) - ₹400</option>
-                            <option value="8 Hours (Full Day)">8 മണിക്കൂർ (Full Day) - ₹750</option>
-                            <option value="12 Hours (Long Day)">12 മണിക്കൂർ (Long Day) - ₹1100</option>
-                            <option value="24 Hours (Multi-Day)">24 മണിക്കൂർ (Per Day) - ₹1400</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl transition duration-300 shadow-lg cursor-pointer text-center block">
-                        <i class="fas fa-paper-plane mr-2"></i>Book Now
-                    </button>
-                </form>
-                <div id="successMessage" class="hidden mt-4 p-3 bg-green-100 text-green-700 text-center font-medium rounded-xl">
-                    നിങ്ങളുടെ ബുക്കിംഗ് വിജയകരമായി രേഖപ്പെടുത്തിയിട്ടുണ്ട്!
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="bg-gray-800 text-gray-400 text-center py-6 mt-12 text-sm border-t border-gray-700">
-        &copy; 2026 Imperial Kochi. All Rights Reserved. <br> Powered by Call Driver Service.
-    </footer>
-
-    <script>
-        const form = document.getElementById('driverBookingForm');
-        const msg = document.getElementById('successMessage');
-
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-            const submitButton = form.querySelector('button[type="submit"]');
-            submitButton.disabled = true;
-            submitButton.innerText = "Processing...";
-
-            fetch(form.action, { method: 'POST', body: new FormData(form)})
-            .then(response => {
-                msg.classList.remove('hidden');
-                form.reset();
-                submitButton.disabled = false;
-                submitButton.innerText = "Book Now";
-                setTimeout(() => msg.classList.add('hidden'), 5000);
-            })
-            .catch(error => {
-                alert('Error! സൂക്ഷിക്കുക, എന്തോ തകരാർ സംഭവിച്ചു.');
-                submitButton.disabled = false;
-                submitButton.innerText = "Book Now";
-            });
-        });
-    </script>
-</body>
-</html>
+                    <li class="flex items-start"><i class="fas fa-hourglass-half text-yellow-400 mt-1 mr-2 text-xs"></i><span><strong>വെയിറ്റിംഗ് ടൈ
