@@ -1,131 +1,31 @@
-<!DOCTYPE html>
-<html lang="ml">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Imperial Kochi - Call Driver Service</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        :root { --primary-color: #003366; --accent-color: #f39c12; --bg-color: #f4f7f6; --card-bg: #ffffff; }
-        body { font-family: 'Poppins', sans-serif; background-color: var(--bg-color); margin: 0; padding: 0; color: #333; }
-        header { background-color: var(--primary-color); color: white; padding: 20px; text-align: center; position: relative; }
-        .lang-switch { position: absolute; top: 10px; right: 10px; }
-        .lang-switch select { padding: 5px; border-radius: 5px; border: none; font-size: 14px; cursor: pointer; background: var(--accent-color); color: white; font-weight: bold; }
-        .container { max-width: 800px; margin: 20px auto; padding: 20px; }
-        .rate-card { background: var(--card-bg); padding: 20px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-bottom: 30px; }
-        .rate-card h2 { color: var(--primary-color); text-align: center; border-bottom: 2px solid var(--accent-color); padding-bottom: 10px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
-        th { background-color: #f8f9fa; color: var(--primary-color); }
-        .highlight { color: var(--accent-color); font-weight: bold; }
-        .booking-form { background: var(--primary-color); color: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
-        .booking-form h2 { text-align: center; margin-bottom: 20px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; }
-        input, select, textarea { width: 100%; padding: 12px; border-radius: 8px; border: none; box-sizing: border-box; font-size: 16px; }
-        button { width: 100%; padding: 15px; background-color: var(--accent-color); color: white; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        button:hover { background-color: #e67e22; }
-        .extra-info { font-size: 14px; margin-top: 15px; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; }
-        @media (max-width: 600px) { th, td { padding: 8px; font-size: 14px; } .lang-switch { position: static; margin-bottom: 10px; text-align: right; } }
-    </style>
-</head>
-<body>
+function doPost(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Sheet1");
+  var data = e.parameter;
+  
+  // പുതിയ വരി ഏറ്റവും മുകളിൽ (Row 2) ചേർക്കുന്നു
+  sheet.insertRowBefore(2);
 
-<header>
-    <div class="lang-switch">
-        <select onchange="changeLanguage(this.value)">
-            <option value="ml">മലയാളം</option>
-            <option value="en">English</option>
-            <option value="hi">हिन्दी</option>
-        </select>
-    </div>
-    <h1 id="main-title">🚗 Imperial Kochi</h1>
-    <p id="sub-title">വിശ്വസ്തരായ ഡ്രൈവർമാർ ഇനി നിങ്ങളുടെ വിരൽത്തുമ്പിൽ</p>
-    <strong>📞 8089003038</strong>
-</header>
+  // വെബ്സൈറ്റിലെ ഓർഡറിൽ തന്നെ ഷീറ്റിലേക്ക് വിവരങ്ങൾ നൽകുന്നു:
+  var rowData = [
+    new Date(),        // Column A: Submission Date
+    data.name,         // Column B: Customer Name
+    "'" + data.phone,  // Column C: Mobile Number
+    data.bookingDate,  // Column D: Booking Date
+    data.bookingTime,  // Column E: Booking Time
+    data.package,      // Column F: Package Selected
+    data.message,      // Column G: Notes/Location
+    false              // Column H: Booking Status
+  ];
 
-<div class="container">
-    <div class="rate-card">
-        <h2 id="rate-card-title">Driver Rate Card</h2>
-        <table>
-            <thead>
-                <tr><th id="th-package">Package (പാക്കേജ്)</th><th id="th-rate">Rate (തുക)</th></tr>
-            </thead>
-            <tbody>
-                <tr><td id="pkg-mini">4 മണിക്കൂർ (Mini)</td><td class="highlight">₹400</td></tr>
-                <tr><td id="pkg-full">8 മണിക്കൂർ (Full Day)</td><td class="highlight">₹750</td></tr>
-                <tr><td id="pkg-long">12 മണിക്കൂർ (Long Day)</td><td class="highlight">₹1100</td></tr>
-                <tr><td id="pkg-24">24 മണിക്കൂർ (Per Day)</td><td class="highlight">₹1400</td></tr>
-            </tbody>
-        </table>
-        <p id="extra-hour-note" style="font-size: 13px; color: #666; margin-top: 10px;">* അധിക സമയം: ഒരു മണിക്കൂറിന് ₹100 വീതം.</p>
-    </div>
+  // ഡാറ്റ രണ്ടാമത്തെ വരിയിലേക്ക് ചേർക്കുന്നു
+  sheet.getRange(2, 1, 1, rowData.length).setValues([rowData]);
+  
+  // Status കോളത്തിൽ ചെക്ക് ബോക്സ് നൽകുന്നു
+  sheet.getRange(2, 8).insertCheckboxes();
+  
+  // WhatsApp ലിങ്ക് ഫോർമുല (Column I)
+  var waFormula = '=IF(C2<>"", HYPERLINK("https://wa.me/91"&SUBSTITUTE(C2,"\'","")&"?text=Hello%20"&ENCODEURL(B2)&",%20This%20is%20Imperial%20Kochi%20Driver%20Service.%20Your%20booking%20for%20"&ENCODEURL(D2)&"%20at%20"&ENCODEURL(E2)&"%20is%20confirmed.", "WhatsApp അയക്കുക"), "")';
+  sheet.getRange(2, 9).setFormula(waFormula);
 
-    <div class="booking-form">
-        <h2 id="form-title">Book a Driver</h2>
-        <form id="bookingForm">
-            <div class="form-group"><label id="lbl-name">Name (പേര്):</label><input type="text" name="name" required></div>
-            <div class="form-group"><label id="lbl-phone">Mobile Number (മൊബൈൽ):</label><input type="tel" name="phone" required></div>
-            <div class="form-group"><label id="lbl-date">Booking Date (തിയതി):</label><input type="date" name="bookingDate" required></div>
-            <div class="form-group"><label id="lbl-time">Booking Time (സമയം):</label><input type="time" name="bookingTime" required></div>
-            <div class="form-group">
-                <label id="lbl-pkg">Select Package (പാക്കേജ്):</label>
-                <select name="package" required>
-                    <option value="" id="opt-choose">-- Choose --</option>
-                    <option value="4h - Mini">4 Hours (Mini)</option>
-                    <option value="8h - Full Day">8 Hours (Full Day)</option>
-                    <option value="12h - Long Day">12 Hours (Long Day)</option>
-                    <option value="24h - Per Day">24 Hours (Per Day)</option>
-                </select>
-            </div>
-            <div class="form-group"><label id="lbl-msg">Notes (മറ്റ് വിവരങ്ങൾ):</label><textarea name="message" rows="3"></textarea></div>
-            <button type="submit" id="submitBtn">Submit Booking</button>
-        </form>
-        <div class="extra-info" id="extra-info-text">• 10 PM - 6 AM: ₹150 നൈറ്റ് ചാർജ്.<br>• വെയിറ്റിംഗ് ടൈം: 15 മിനിറ്റിന് ശേഷം ₹2/min.<br>• ക്യാൻസലേഷൻ: ₹100.</div>
-    </div>
-</div>
-
-<script>
-    const translations = {
-        ml: { subTitle: "വിശ്വസ്തരായ ഡ്രൈവർമാർ ഇനി നിങ്ങളുടെ വിരൽത്തുമ്പിൽ", rateCardTitle: "Driver Rate Card", thPackage: "Package (പാക്കേജ്)", thRate: "Rate (തുക)", pkgMini: "4 മണിക്കൂർ (Mini)", pkgFull: "8 മണിക്കൂർ (Full Day)", pkgLong: "12 മണിക്കൂർ (Long Day)", pkg24: "24 മണിക്കൂർ (Per Day)", extraHour: "* അധിക സമയം: ഒരു മണിക്കൂറിന് ₹100 വീതം.", formTitle: "Book a Driver", lblName: "Name (പേര്):", lblPhone: "Mobile Number (മൊബൈൽ):", lblDate: "Booking Date (തിയതി):", lblTime: "Booking Time (സമയം):", lblPkg: "Select Package (പാക്കേജ്):", lblMsg: "Message/Location (മറ്റ് വിവരങ്ങൾ):", optChoose: "-- തിരഞ്ഞെടുക്കുക --", submitBtn: "Submit Booking", extraInfo: "• 10 PM - 6 AM: ₹150 നൈറ്റ് ചാർജ്.<br>• വെയിറ്റിംഗ് ടൈം: 15 മിനിറ്റിന് ശേഷം മിനിറ്റിന് ₹2.<br>• ക്യാൻസലേഷൻ: ₹100.", alertSuccess: "വിജയകരമായി ബുക്ക് ചെയ്തു!", alertError: "ബുക്കിംഗ് പരാജയപ്പെട്ടു." },
-        en: { subTitle: "Reliable drivers at your fingertips", rateCardTitle: "Driver Rate Card", thPackage: "Package", thRate: "Rate", pkgMini: "4 Hours (Mini)", pkgFull: "8 Hours (Full Day)", pkgLong: "12 Hours (Long Day)", pkg24: "24 Hours (Per Day)", extraHour: "* Extra time: ₹100 per hour.", formTitle: "Book a Driver", lblName: "Name:", lblPhone: "Mobile Number:", lblDate: "Booking Date:", lblTime: "Booking Time:", lblPkg: "Select Package:", lblMsg: "Message/Location:", optChoose: "-- Choose --", submitBtn: "Submit Booking", extraInfo: "• 10 PM - 6 AM: ₹150 Night Charge.<br>• Waiting Time: ₹2/min after 15 mins.<br>• Cancellation Fee: ₹100.", alertSuccess: "Booking Successful!", alertError: "Booking Failed." },
-        hi: { subTitle: "आपकी उंगलियों पर विश्वसनीय ड्राइवर", rateCardTitle: "ड्राइवर रेट कार्ड", thPackage: "पैकेज", thRate: "दर", pkgMini: "4 घंटे (Mini)", pkgFull: "8 घंटे (Full Day)", pkgLong: "12 घंटे (Long Day)", pkg24: "24 घंटे (Per Day)", extraHour: "* अतिरिक्त समय: ₹100 प्रति घंटा।", formTitle: "ड्राइवर बुक करें", lblName: "नाम:", lblPhone: "मोबाइल नंबर:", lblDate: "बुकिंग तिथि:", lblTime: "बुकिंग समय:", lblPkg: "पैकेज चुनें:", lblMsg: "संदेश/स्थान:", optChoose: "-- चुनें --", submitBtn: "बुकिंग जमा करें", extraInfo: "• रात 10 बजे - सुबह 6 बजे: ₹150 नाइट चार्ज।<br>• वेटिंग टाइम: 15 मिनट के बाद ₹2/मिनट।<br>• रद्दीकरण शुल्क: ₹100।", alertSuccess: "बुकिंग सफल!", alertError: "बुकिंग विफल रही।" }
-    };
-
-    let currentLang = 'ml';
-    function changeLanguage(lang) {
-        currentLang = lang; const t = translations[lang];
-        document.getElementById('sub-title').innerText = t.subTitle;
-        document.getElementById('rate-card-title').innerText = t.rateCardTitle;
-        document.getElementById('th-package').innerText = t.thPackage;
-        document.getElementById('th-rate').innerText = t.thRate;
-        document.getElementById('pkg-mini').innerText = t.pkgMini;
-        document.getElementById('pkg-full').innerText = t.pkgFull;
-        document.getElementById('pkg-long').innerText = t.pkgLong;
-        document.getElementById('pkg-24').innerText = t.pkg24;
-        document.getElementById('extra-hour-note').innerText = t.extraHour;
-        document.getElementById('form-title').innerText = t.formTitle;
-        document.getElementById('lbl-name').innerText = t.lblName;
-        document.getElementById('lbl-phone').innerText = t.lblPhone;
-        document.getElementById('lbl-date').innerText = t.lblDate;
-        document.getElementById('lbl-time').innerText = t.lblTime;
-        document.getElementById('lbl-pkg').innerText = t.lblPkg;
-        document.getElementById('lbl-msg').innerText = t.lblMsg;
-        document.getElementById('opt-choose').innerText = t.optChoose;
-        document.getElementById('submitBtn').innerText = t.submitBtn;
-        document.getElementById('extra-info-text').innerHTML = t.extraInfo;
-    }
-
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxKZPURAAi6mni6VvSinMM9xsazV9XnEOICkdUkf38X4CKjxmv5bBMGlx3IIWLSyU2B/exec';
-    const form = document.getElementById('bookingForm');
-    const btn = document.getElementById('submitBtn');
-
-    form.addEventListener('submit', e => {
-        e.preventDefault(); btn.disabled = true; btn.innerText = 'Processing...';
-        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-            .then(res => { alert(translations[currentLang].alertSuccess); form.reset(); btn.disabled = false; btn.innerText = translations[currentLang].submitBtn; })
-            .catch(err => { alert(translations[currentLang].alertError); btn.disabled = false; btn.innerText = translations[currentLang].submitBtn; });
-    });
-</script>
-</body>
-</html>
+  return ContentService.createTextOutput("Success").setMimeType(ContentService.MimeType.TEXT);
+}
