@@ -3,236 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Imperial Kochi - Call Driver Service</title>
-    <!-- Google Fonts -->
+    <title>Imperial Kochi - Booking</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #003366;
-            --accent-color: #f39c12;
-            --bg-color: #f4f7f6;
-            --card-bg: #ffffff;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-color);
-            margin: 0;
-            padding: 0;
-            color: #333;
-        }
-
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-        }
-
-        /* Rate Card Styles */
-        .rate-card {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-        }
-
-        .rate-card h2 {
-            color: var(--primary-color);
-            text-align: center;
-            border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 10px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #eee;
-        }
-
-        th {
-            background-color: #f8f9fa;
-            color: var(--primary-color);
-        }
-
-        .highlight {
-            color: var(--accent-color);
-            font-weight: bold;
-        }
-
-        /* Form Styles */
-        .booking-form {
-            background: var(--primary-color);
-            color: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-
-        .booking-form h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: none;
-            box-sizing: border-box;
-            font-size: 16px;
-        }
-
-        button {
-            width: 100%;
-            padding: 15px;
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        button:hover {
-            background-color: #e67e22;
-        }
-
-        .extra-info {
-            font-size: 14px;
-            margin-top: 15px;
-            background: rgba(255,255,255,0.1);
-            padding: 10px;
-            border-radius: 8px;
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 600px) {
-            th, td { padding: 8px; font-size: 14px; }
-        }
+        :root { --primary: #003366; --accent: #f39c12; }
+        body { font-family: 'Poppins', sans-serif; background: #f4f7f6; margin: 0; padding: 10px; }
+        .card { max-width: 500px; margin: auto; background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .header { background: var(--primary); color: white; padding: 20px; text-align: center; }
+        .form-body { padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: 600; color: #444; }
+        input, select, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
+        button { width: 100%; padding: 12px; background: var(--accent); color: white; border: none; border-radius: 8px; font-size: 17px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #e67e22; }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>🚗 Imperial Kochi</h1>
-    <p>വിശ്വസ്തരായ ഡ്രൈവർമാർ ഇനി നിങ്ങളുടെ വിരൽത്തുമ്പിൽ</p>
-    <strong>📞 8089003038</strong>
-</header>
-
-<div class="container">
-    <!-- Rate Card Section -->
-    <div class="rate-card">
-        <h2>Driver Rate Card</h2>
-        <table>
-            <tr>
-                <th>Package (Package)</th>
-                <th>Rate (Amount)</th>
-            </tr>
-            <tr>
-                <td>4 മണിക്കൂർ (Mini)</td>
-                <td class="highlight">₹400</td>
-            </tr>
-            <tr>
-                <td>8 മണിക്കൂർ (Full Day)</td>
-                <td class="highlight">₹750</td>
-            </tr>
-            <tr>
-                <td>12 മണിക്കൂർ (Long Day)</td>
-                <td class="highlight">₹1100</td>
-            </tr>
-            <tr>
-                <td>24 മണിക്കൂർ (Per Day)</td>
-                <td class="highlight">₹1400</td>
-            </tr>
-        </table>
-        <p style="font-size: 13px; color: #666; margin-top: 10px;">* അധിക സമയം: ഒരു മണിക്കൂറിന് ₹100 വീതം.</p>
+<div class="card">
+    <div class="header">
+        <h2>🚗 Imperial Kochi</h2>
+        <p>Book Your Professional Driver</p>
     </div>
-
-    <!-- Booking Form Section -->
-    <div class="booking-form">
-        <h2>Book a Driver</h2>
+    <div class="form-body">
         <form id="bookingForm">
             <div class="form-group">
-                <label>Name (പേര്):</label>
-                <input type="text" name="name" placeholder="Enter your name" required>
+                <label>Customer Name (പേര്)</label>
+                <input type="text" name="name" required>
             </div>
             <div class="form-group">
-                <label>Mobile Number (മൊബൈൽ):</label>
-                <input type="tel" name="phone" placeholder="808900xxxx" required>
+                <label>Mobile Number (മൊബൈൽ)</label>
+                <input type="tel" name="phone" required>
             </div>
             <div class="form-group">
-                <label>Select Package (പാക്കേജ്):</label>
+                <label>Booking Date (തിയതി)</label>
+                <input type="date" name="bookingDate" required>
+            </div>
+            <div class="form-group">
+                <label>Booking Time (സമയം)</label>
+                <input type="time" name="bookingTime" required>
+            </div>
+            <div class="form-group">
+                <label>Select Package (പാക്കേജ്)</label>
                 <select name="package" required>
-                    <option value="">-- Choose --</option>
-                    <option value="4h - Mini">4 Hours (Mini) - ₹400</option>
-                    <option value="8h - Full Day">8 Hours (Full Day) - ₹750</option>
-                    <option value="12h - Long Day">12 Hours (Long Day) - ₹1100</option>
-                    <option value="24h - Per Day">24 Hours (Per Day) - ₹1400</option>
+                    <option value="4h - Mini">4h (Mini) - ₹400</option>
+                    <option value="8h - Full Day">8h (Full) - ₹750</option>
+                    <option value="12h - Long Day">12h (Long) - ₹1100</option>
+                    <option value="24h - Per Day">24h (Per Day) - ₹1400</option>
                 </select>
             </div>
             <div class="form-group">
-                <label>Message/Location (മറ്റ് വിവരങ്ങൾ):</label>
-                <textarea name="message" rows="3" placeholder="Pick-up location or notes"></textarea>
+                <label>Notes/Location (മറ്റ് വിവരങ്ങൾ)</label>
+                <textarea name="message" rows="2"></textarea>
             </div>
-            <button type="submit" id="submitBtn">Submit Booking</button>
+            <button type="submit" id="submitBtn">Book Now</button>
         </form>
-        
-        <div class="extra-info">
-            • 10 PM - 6 AM: ₹150 നൈറ്റ് ചാർജ്.<br>
-            • വെയിറ്റിംഗ് ടൈം: 15 മിനിറ്റിന് ശേഷം മിനിറ്റിന് ₹2.<br>
-            • ക്യാൻസലേഷൻ: ₹100.
-        </div>
     </div>
 </div>
 
 <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwTQgqjaEM6uBdn2u-B5DL3Y0gaWpw05f0RcjxBBVciqOO656fTL97g3qbscFznzR0S/exec'
+    const scriptURL = 'YOUR_NEW_DEPLOYMENT_URL_HERE'
     const form = document.getElementById('bookingForm')
     const btn = document.getElementById('submitBtn')
 
     form.addEventListener('submit', e => {
         e.preventDefault()
-        btn.disabled = true
-        btn.innerText = 'Processing...'
-
+        btn.disabled = true; btn.innerText = 'Sending...';
         fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-            .then(response => {
-                alert("വിജയകരമായി ബുക്ക് ചെയ്തു! Imperial Kochi നിങ്ങളെ ഉടൻ ബന്ധപ്പെടും.")
-                form.reset()
-                btn.disabled = false
-                btn.innerText = 'Submit Booking'
+            .then(res => {
+                alert("ബുക്കിംഗ് ഷീറ്റിൽ അപ്‌ഡേറ്റ് ആയിട്ടുണ്ട്!");
+                form.reset(); btn.disabled = false; btn.innerText = 'Book Now';
             })
-            .catch(error => {
-                console.error('Error!', error.message)
-                alert("ക്ഷമിക്കണം, ബുക്കിംഗ് പരാജയപ്പെട്ടു. ദയവായി 8089003038 എന്ന നമ്പറിൽ വിളിക്കുക.")
-                btn.disabled = false
-                btn.innerText = 'Submit Booking'
+            .catch(err => {
+                alert("Error! Please try again.");
+                btn.disabled = false; btn.innerText = 'Book Now';
             })
     })
 </script>
