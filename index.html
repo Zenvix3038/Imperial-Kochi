@@ -3,164 +3,292 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Imperial Kochi - Call Driver Service</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Call Driver Control Center</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary-color: #003366;
-            --accent-color: #f39c12;
-            --bg-color: #f4f7f6;
-            --card-bg: #ffffff;
+        /* Custom Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 5px;
         }
-        body { font-family: 'Poppins', sans-serif; background-color: var(--bg-color); margin: 0; padding: 0; color: #333; }
-        header { background-color: var(--primary-color); color: white; padding: 20px; text-align: center; position: relative; }
-        .lang-switch { position: absolute; top: 10px; right: 10px; }
-        .lang-switch select { padding: 5px; border-radius: 5px; border: none; font-size: 14px; cursor: pointer; background: var(--accent-color); color: white; font-weight: bold; }
-        .container { max-width: 800px; margin: 20px auto; padding: 20px; }
-        .rate-card { background: var(--card-bg); padding: 20px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-bottom: 30px; }
-        .rate-card h2 { color: var(--primary-color); text-align: center; border-bottom: 2px solid var(--accent-color); padding-bottom: 10px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
-        th { background-color: #f8f9fa; color: var(--primary-color); }
-        .highlight { color: var(--accent-color); font-weight: bold; }
-        .booking-form { background: var(--primary-color); color: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
-        .booking-form h2 { text-align: center; margin-bottom: 20px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; }
-        input, select, textarea { width: 100%; padding: 12px; border-radius: 8px; border: none; box-sizing: border-box; font-size: 16px; }
-        button { width: 100%; padding: 15px; background-color: var(--accent-color); color: white; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        button:hover { background-color: #e67e22; }
-        .extra-info { font-size: 14px; margin-top: 15px; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; }
-        @media (max-width: 600px) { th, td { padding: 8px; font-size: 14px; } .lang-switch { position: static; margin-bottom: 10px; text-align: right; } }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 9999px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #334155;
+        }
     </style>
 </head>
-<body>
+<body class="min-h-screen bg-[#0b0f19] text-slate-100 p-6 font-sans">
 
-<header>
-    <div class="lang-switch">
-        <select onchange="changeLanguage(this.value)">
-            <option value="ml">മലയാളം</option>
-            <option value="en">English</option>
-            <option value="hi">हिन्दी</option>
-        </select>
-    </div>
-    <h1 id="main-title">🚗 Imperial Kochi</h1>
-    <p id="sub-title">വിശ്വസ്തരായ ഡ്രൈവർമാർ ഇനി നിങ്ങളുടെ വിരൽത്തുമ്പിൽ</p>
-    <strong>📞 8089003038</strong>
-</header>
+    <!-- HEADER SECTION -->
+    <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8 pb-6 border-b border-slate-800">
+        <div>
+            <h1 class="text-3xl font-bold tracking-tight bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
+                Call Driver Control Center
+            </h1>
+            <p class="text-sm text-slate-400 mt-1">Real-time driver tracking and payment resolution hub.</p>
+        </div>
+        <div class="flex items-center gap-3 bg-slate-900/60 border border-slate-800 rounded-xl px-4 py-2 backdrop-blur-md">
+            <div class="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
+            <span class="text-xs font-medium text-slate-300 uppercase tracking-wider">System Live</span>
+        </div>
+    </header>
 
-<div class="container">
-    <div class="rate-card">
-        <h2 id="rate-card-title">Driver Rate Card</h2>
-        <table>
-            <thead>
-                <tr><th id="th-package">Package (പാക്കേജ്)</th><th id="th-rate">Rate (തുക)</th></tr>
-            </thead>
-            <tbody>
-                <tr><td id="pkg-mini">4 മണിക്കൂർ (Mini)</td><td class="highlight">₹400</td></tr>
-                <tr><td id="pkg-full">8 മണിക്കൂർ (Full Day)</td><td class="highlight">₹750</td></tr>
-                <tr><td id="pkg-long">12 മണിക്കൂർ (Long Day)</td><td class="highlight">₹1100</td></tr>
-                <tr><td id="pkg-24">24 മണിക്കൂർ (Per Day)</td><td class="highlight">₹1400</td></tr>
-            </tbody>
-        </table>
-        <p id="extra-hour-note" style="font-size: 13px; color: #666; margin-top: 10px;">* അധിക സമയം: ഒരു മണിക്കൂറിന് ₹100 വീതം.</p>
-    </div>
+    <!-- ANALYTICS CARDS -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+        <div class="bg-slate-900/40 border border-slate-800/80 p-5 rounded-2xl backdrop-blur-sm">
+            <div class="flex justify-between items-start">
+                <span class="text-sm font-medium text-slate-400">Total Drivers</span>
+                <span class="p-2 bg-blue-500/10 text-blue-400 rounded-xl"><i class="fa-solid fa-users"></i></span>
+            </div>
+            <div class="mt-4">
+                <h3 class="text-2xl font-bold" id="total-drivers-count">4</h3>
+                <p class="text-xs text-emerald-400 mt-1 flex items-center gap-1">
+                    <i class="fa-solid fa-arrow-trend-up text-[10px]"></i> +2 added today
+                </p>
+            </div>
+        </div>
 
-    <div class="booking-form">
-        <h2 id="form-title">Book a Driver</h2>
-        <form id="bookingForm">
-            <div class="form-group">
-                <label id="lbl-name">Name (പേര്):</label>
-                <input type="text" name="name" id="in-name" placeholder="Enter name" required>
+        <div class="bg-slate-900/40 border border-slate-800/80 p-5 rounded-2xl backdrop-blur-sm">
+            <div class="flex justify-between items-start">
+                <span class="text-sm font-medium text-slate-400">Active On-Duty</span>
+                <span class="p-2 bg-emerald-500/10 text-emerald-400 rounded-xl"><i class="fa-solid fa-map-pin"></i></span>
             </div>
-            <div class="form-group">
-                <label id="lbl-phone">Mobile Number (മൊബൈൽ):</label>
-                <input type="tel" name="phone" id="in-phone" placeholder="808900xxxx" required>
+            <div class="mt-4">
+                <h3 class="text-2xl font-bold" id="active-drivers-count">3</h3>
+                <p class="text-xs text-slate-400 mt-1">Ready for trips</p>
             </div>
-            <div class="form-group">
-                <label id="lbl-date">Booking Date (തിയതി):</label>
-                <input type="date" name="bookingDate" required>
+        </div>
+
+        <div class="bg-slate-900/40 border border-slate-800/80 p-5 rounded-2xl backdrop-blur-sm">
+            <div class="flex justify-between items-start">
+                <span class="text-sm font-medium text-slate-400">Pending Disputes</span>
+                <span class="p-2 bg-amber-500/10 text-amber-400 rounded-xl"><i class="fa-solid fa-triangle-exclamation"></i></span>
             </div>
-            <div class="form-group">
-                <label id="lbl-time">Booking Time (സമയം):</label>
-                <input type="time" name="bookingTime" required>
+            <div class="mt-4">
+                <h3 class="text-2xl font-bold text-amber-400" id="pending-disputes-count">2</h3>
+                <p class="text-xs text-rose-400 mt-1">Requires attention</p>
             </div>
-            <div class="form-group">
-                <label id="lbl-pkg">Select Package (പാക്കേജ്):</label>
-                <select name="package" id="in-pkg" required>
-                    <option value="" id="opt-choose">-- Choose --</option>
-                    <option value="4h - Mini">4 Hours (Mini)</option>
-                    <option value="8h - Full Day">8 Hours (Full Day)</option>
-                    <option value="12h - Long Day">12 Hours (Long Day)</option>
-                    <option value="24h - Per Day">24 Hours (Per Day)</option>
-                </select>
+        </div>
+
+        <div class="bg-slate-900/40 border border-slate-800/80 p-5 rounded-2xl backdrop-blur-sm">
+            <div class="flex justify-between items-start">
+                <span class="text-sm font-medium text-slate-400">Escrow Payments</span>
+                <span class="p-2 bg-indigo-500/10 text-indigo-400 rounded-xl"><i class="fa-solid fa-credit-card"></i></span>
             </div>
-            <div class="form-group">
-                <label id="lbl-msg">Notes (മറ്റ് വിവരങ്ങൾ):</label>
-                <textarea name="message" id="in-msg" rows="3" placeholder="Location or notes"></textarea>
+            <div class="mt-4">
+                <h3 class="text-2xl font-bold">₹14,250</h3>
+                <p class="text-xs text-indigo-400 mt-1">To be disbursed</p>
             </div>
-            <button type="submit" id="submitBtn">Submit Booking</button>
-        </form>
-        <div class="extra-info" id="extra-info-text">
-            • 10 PM - 6 AM: ₹150 നൈറ്റ് ചാർജ്.<br>• വെയിറ്റിംഗ് ടൈം: 15 മിനിറ്റിന് ശേഷം മിനിറ്റിന് ₹2.<br>• ക്യാൻസലേഷൻ: ₹100.
         </div>
     </div>
-</div>
 
-<script>
-    const translations = {
-        ml: { subTitle: "വിശ്വസ്തരായ ഡ്രൈവർമാർ ഇനി നിങ്ങളുടെ വിരൽത്തുമ്പിൽ", rateCardTitle: "Driver Rate Card", thPackage: "Package (പാക്കേജ്)", thRate: "Rate (തുക)", pkgMini: "4 മണിക്കൂർ (Mini)", pkgFull: "8 മണിക്കൂർ (Full Day)", pkgLong: "12 മണിക്കൂർ (Long Day)", pkg24: "24 മണിക്കൂർ (Per Day)", extraHour: "* അധിക സമയം: ഒരു മണിക്കൂറിന് ₹100 വീതം.", formTitle: "Book a Driver", lblName: "Name (പേര്):", lblPhone: "Mobile Number (മൊബൈൽ):", lblDate: "Booking Date (തിയതി):", lblTime: "Booking Time (സമയം):", lblPkg: "Select Package (പാക്കേജ്):", lblMsg: "Message/Location (മറ്റ് വിവരങ്ങൾ):", optChoose: "-- തിരഞ്ഞെടുക്കുക --", submitBtn: "Submit Booking", extraInfo: "• 10 PM - 6 AM: ₹150 നൈറ്റ് ചാർജ്.<br>• വെയിറ്റിംഗ് ടൈം: 15 മിനിറ്റിന് ശേഷം മിനിറ്റിന് ₹2.<br>• ക്യാൻസലേഷൻ: ₹100.", alertSuccess: "വിജയകരമായി ബുക്ക് ചെയ്തു!", alertError: "ബുക്കിംഗ് പരാജയപ്പെട്ടു." },
-        en: { subTitle: "Reliable drivers at your fingertips", rateCardTitle: "Driver Rate Card", thPackage: "Package", thRate: "Rate", pkgMini: "4 Hours (Mini)", pkgFull: "8 Hours (Full Day)", pkgLong: "12 Hours (Long Day)", pkg24: "24 Hours (Per Day)", extraHour: "* Extra time: ₹100 per hour.", formTitle: "Book a Driver", lblName: "Name:", lblPhone: "Mobile Number:", lblDate: "Booking Date:", lblTime: "Booking Time:", lblPkg: "Select Package:", lblMsg: "Message/Location:", optChoose: "-- Choose --", submitBtn: "Submit Booking", extraInfo: "• 10 PM - 6 AM: ₹150 Night Charge.<br>• Waiting Time: ₹2/min after 15 mins.<br>• Cancellation Fee: ₹100.", alertSuccess: "Booking Successful!", alertError: "Booking Failed." },
-        hi: { subTitle: "आपकी उंगलियों पर विश्वसनीय ड्राइवर", rateCardTitle: "ड्राइवर रेट कार्ड", thPackage: "पैकेज", thRate: "दर", pkgMini: "4 घंटे (Mini)", pkgFull: "8 घंटे (Full Day)", pkgLong: "12 घंटे (Long Day)", pkg24: "24 घंटे (Per Day)", extraHour: "* अतिरिक्त समय: ₹100 प्रति घंटा।", formTitle: "ड्राइवर बुक करें", lblName: "नाम:", lblPhone: "मोबाइल नंबर:", lblDate: "बुकिंग तिथि:", lblTime: "बुकिंग समय:", lblPkg: "पैकेज चुनें:", lblMsg: "संदेश/स्थान:", optChoose: "-- चुनें --", submitBtn: "बुकिंग जमा करें", extraInfo: "• रात 10 बजे - सुबह 6 बजे: ₹150 नाइट चार्ज।<br>• वेटिंग टाइम: 15 मिनट के बाद ₹2/मिनट।<br>• रद्दीकरण शुल्क: ₹100।", alertSuccess: "बुकिंग सफल!", alertError: "बुकिंग विफल रही।" }
-    };
+    <!-- MAIN TWO-COLUMN WORKSPACE -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- LEFT COLUMN: DRIVER CONTROL PANEL (7 COLS) -->
+        <div class="lg:col-span-7 bg-slate-900/20 border border-slate-800/60 rounded-3xl p-6 backdrop-blur-sm flex flex-col">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                <div>
+                    <h2 class="text-xl font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-user-shield text-blue-400"></i> Driver Management
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-0.5">Monitor and change statuses instantly</p>
+                </div>
+                
+                <!-- Filter Tabs -->
+                <div class="flex bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs font-medium" id="filter-tabs">
+                    <button onclick="filterDrivers('All')" id="tab-All" class="px-3 py-1.5 rounded-lg transition-all bg-blue-600 text-white shadow-md">All</button>
+                    <button onclick="filterDrivers('Active')" id="tab-Active" class="px-3 py-1.5 rounded-lg transition-all text-slate-400 hover:text-slate-200">Active</button>
+                    <button onclick="filterDrivers('In Trip')" id="tab-InTrip" class="px-3 py-1.5 rounded-lg transition-all text-slate-400 hover:text-slate-200">In Trip</button>
+                    <button onclick="filterDrivers('Offline')" id="tab-Offline" class="px-3 py-1.5 rounded-lg transition-all text-slate-400 hover:text-slate-200">Offline</button>
+                </div>
+            </div>
 
-    let currentLang = 'ml';
-    function changeLanguage(lang) {
-        currentLang = lang; const t = translations[lang];
-        document.getElementById('sub-title').innerText = t.subTitle;
-        document.getElementById('rate-card-title').innerText = t.rateCardTitle;
-        document.getElementById('th-package').innerText = t.thPackage;
-        document.getElementById('th-rate').innerText = t.thRate;
-        document.getElementById('pkg-mini').innerText = t.pkgMini;
-        document.getElementById('pkg-full').innerText = t.pkgFull;
-        document.getElementById('pkg-long').innerText = t.pkgLong;
-        document.getElementById('pkg-24').innerText = t.pkg24;
-        document.getElementById('extra-hour-note').innerText = t.extraHour;
-        document.getElementById('form-title').innerText = t.formTitle;
-        document.getElementById('lbl-name').innerText = t.lblName;
-        document.getElementById('lbl-phone').innerText = t.lblPhone;
-        document.getElementById('lbl-date').innerText = t.lblDate;
-        document.getElementById('lbl-time').innerText = t.lblTime;
-        document.getElementById('lbl-pkg').innerText = t.lblPkg;
-        document.getElementById('lbl-msg').innerText = t.lblMsg;
-        document.getElementById('opt-choose').innerText = t.optChoose;
-        document.getElementById('submitBtn').innerText = t.submitBtn;
-        document.getElementById('extra-info-text').innerHTML = t.extraInfo;
-    }
+            <!-- Drivers List -->
+            <div class="space-y-3 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar" id="drivers-list-container">
+                <!-- Dynamically injected by JS -->
+            </div>
+        </div>
 
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxIChc2oIRw2D81drzKYUDa4XATAJZti-F-BYEKsZfyOvJMtik2tgb5v0la1FqA7Q88/exec';
-    const form = document.getElementById('bookingForm');
-    const btn = document.getElementById('submitBtn');
+        <!-- RIGHT COLUMN: PAYMENT RESOLUTION TICKET DESK (5 COLS) -->
+        <div class="lg:col-span-5 bg-slate-900/20 border border-slate-800/60 rounded-3xl p-6 backdrop-blur-sm flex flex-col">
+            <div class="mb-6">
+                <h2 class="text-xl font-bold flex items-center gap-2">
+                    <i class="fa-solid fa-indian-rupee-sign text-amber-400"></i> Payment Issues & Disputes
+                </h2>
+                <p class="text-xs text-slate-400 mt-0.5">Review and resolve customer pricing/gateway complaints</p>
+            </div>
 
-    form.addEventListener('submit', e => {
-        e.preventDefault();
-        btn.disabled = true;
-        btn.innerText = 'Processing...';
+            <!-- Dispute Tickets -->
+            <div class="space-y-4 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar" id="disputes-list-container">
+                <!-- Dynamically injected by JS -->
+            </div>
+        </div>
 
-        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-            .then(response => {
-                alert(translations[currentLang].alertSuccess);
-                form.reset();
-                btn.disabled = false;
-                btn.innerText = translations[currentLang].submitBtn;
-            })
-            .catch(error => {
-                console.error('Error!', error.message);
-                alert(translations[currentLang].alertError);
-                btn.disabled = false;
-                btn.innerText = translations[currentLang].submitBtn;
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Mock Data
+        let drivers = [
+            { id: "DRV-101", name: "Anish Babu", status: "Active", location: "Kochi, Palarivattom", phone: "9876543210" },
+            { id: "DRV-102", name: "Dhyan", status: "In Trip", location: "Kakkanad, InfoPark", phone: "9876543211" },
+            { id: "DRV-103", name: "Suresh Kumar", status: "Offline", location: "Aluva", phone: "9876543212" },
+            { id: "DRV-104", name: "Rahul NV", status: "Active", location: "Edappally", phone: "9876543213" },
+        ];
+
+        let disputes = [
+            { id: "DIS-501", customer: "Asif Ali", driver: "Suresh Kumar", amount: "₹450", issue: "Wrong Night Charge Applied", status: "Pending" },
+            { id: "DIS-502", customer: "Meera Jasmine", driver: "Anish Babu", amount: "₹820", issue: "Online Payment Failed but Debited", status: "Pending" },
+            { id: "DIS-503", customer: "Gautham", driver: "Rahul NV", amount: "₹300", issue: "Waiting Charge Dispute", status: "Resolved" },
+        ];
+
+        let currentFilter = 'All';
+
+        // Render Drivers List
+        function renderDrivers() {
+            const container = document.getElementById('drivers-list-container');
+            container.innerHTML = '';
+
+            const filteredDrivers = drivers.filter(d => currentFilter === 'All' || d.status === currentFilter);
+
+            filteredDrivers.forEach(driver => {
+                let statusClass = '';
+                let dotClass = '';
+                
+                if(driver.status === 'Active') {
+                    statusClass = 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20';
+                    dotClass = 'bg-emerald-400';
+                } else if(driver.status === 'In Trip') {
+                    statusClass = 'bg-blue-500/10 text-blue-400 border border-blue-500/20';
+                    dotClass = 'bg-blue-400';
+                } else {
+                    statusClass = 'bg-slate-800 text-slate-400 border border-slate-700';
+                    dotClass = 'bg-slate-500';
+                }
+
+                const driverHtml = `
+                    <div class="bg-slate-900/50 hover:bg-slate-900 border border-slate-800/80 rounded-xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition-all">
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center font-bold text-slate-300">
+                                ${driver.name.charAt(0)}
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h4 class="font-semibold text-sm">${driver.name}</h4>
+                                    <span class="text-[10px] text-slate-500 font-mono bg-slate-950 px-1.5 py-0.5 rounded border border-slate-800">${driver.id}</span>
+                                </div>
+                                <p class="text-xs text-slate-400 flex items-center gap-1 mt-1">
+                                    <i class="fa-solid fa-map-pin text-slate-500 text-[11px]"></i> ${driver.location}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex sm:flex-col items-end justify-between w-full sm:w-auto gap-2 border-t sm:border-t-0 pt-2 sm:pt-0 border-slate-800/60">
+                            <span class="text-[11px] font-semibold px-2.5 py-1 rounded-full flex items-center gap-1.5 ${statusClass}">
+                                <span class="w-1.5 h-1.5 rounded-full ${dotClass}"></span>
+                                ${driver.status}
+                            </span>
+                            <span class="text-xs font-mono text-slate-400">${driver.phone}</span>
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', driverHtml);
             });
-    });
-</script>
+
+            // Update Counts
+            document.getElementById('total-drivers-count').innerText = drivers.length;
+            document.getElementById('active-drivers-count').innerText = drivers.filter(d => d.status !== 'Offline').length;
+        }
+
+        // Filter Functionality
+        function filterDrivers(filter) {
+            currentFilter = filter;
+            
+            // Toggle active classes on tab buttons
+            const tabs = ['All', 'Active', 'In Trip', 'Offline'];
+            tabs.forEach(tab => {
+                const buttonId = tab === 'In Trip' ? 'tab-InTrip' : `tab-${tab}`;
+                const btn = document.getElementById(buttonId);
+                if(tab === filter) {
+                    btn.className = "px-3 py-1.5 rounded-lg transition-all bg-blue-600 text-white shadow-md";
+                } else {
+                    btn.className = "px-3 py-1.5 rounded-lg transition-all text-slate-400 hover:text-slate-200";
+                }
+            });
+
+            renderDrivers();
+        }
+
+        // Render Disputes List
+        function renderDisputes() {
+            const container = document.getElementById('disputes-list-container');
+            container.innerHTML = '';
+
+            disputes.forEach(ticket => {
+                const isResolved = ticket.status === 'Resolved';
+                
+                const ticketHtml = `
+                    <div class="border rounded-2xl p-4 transition-all ${isResolved ? 'bg-slate-950/40 border-slate-900 text-slate-500' : 'bg-gradient-to-br from-slate-900/80 to-slate-900/40 border-amber-500/20 shadow-lg shadow-amber-500/[0.02]'}" id="ticket-${ticket.id}">
+                        <div class="flex justify-between items-start gap-2">
+                            <div>
+                                <span class="text-[10px] font-mono uppercase bg-slate-950 px-2 py-0.5 rounded text-slate-400 border border-slate-800">${ticket.id}</span>
+                                <h4 class="font-semibold text-sm mt-2 ${isResolved ? 'line-through text-slate-500' : 'text-slate-200'}">
+                                    ${ticket.issue}
+                                </h4>
+                            </div>
+                            <span class="text-sm font-bold px-2 py-1 rounded-lg ${isResolved ? 'bg-slate-900 text-slate-600' : 'bg-amber-500/10 text-amber-400'}">
+                                ${ticket.amount}
+                            </span>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2 my-3 text-xs bg-slate-950/50 p-2.5 rounded-xl border border-slate-800/40">
+                            <div>
+                                <span class="text-slate-500 block text-[10px]">Customer</span>
+                                <span class="${isResolved ? 'text-slate-600' : 'text-slate-300'}">${ticket.customer}</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-500 block text-[10px]">Driver Assigned</span>
+                                <span class="${isResolved ? 'text-slate-600' : 'text-slate-300'}">${ticket.driver}</span>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between items-center mt-4 pt-3 border-t border-slate-800/40">
+                            <span class="text-xs flex items-center gap-1 ${isResolved ? 'text-emerald-500' : 'text-amber-500'}">
+                                ${isResolved ? '<i class="fa-solid fa-circle-check"></i> Settled' : '<i class="fa-solid fa-clock"></i> Investigation Pending'}
+                            </span>
+
+                            ${!isResolved ? `
+                                <button onclick="resolveTicket('${ticket.id}')" class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1 shadow-md shadow-emerald-900/20">
+                                    Resolve / Refund <i class="fa-solid fa-chevron-right text-[10px] ml-0.5"></i>
+                                </button>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', ticketHtml);
+            });
+
+            // Update Dispute Count
+            document.getElementById('pending-disputes-count').innerText = disputes.filter(d => d.status === 'Pending').length;
+        }
+
+        // Action to Resolve Ticket
+        function resolveTicket(id) {
+            disputes = disputes.map(disp => disp.id === id ? { ...disp, status: 'Resolved' } : disp);
+            renderDisputes();
+        }
+
+        // Initial Load
+        renderDrivers();
+        renderDisputes();
+    </script>
 </body>
 </html>
