@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Call Driver Pro Dashboard - Final Version</title>
+    <title>Drive Zone - Live Driver Dashboard</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { background-color: #121212; color: #ffffff; font-family: system-ui, -apple-system, sans-serif; }
+        .animate-pulse-slow { animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
     </style>
 </head>
 <body class="flex justify-center min-h-screen">
 
-    <!-- Main Container (Mobile Responsive Frame) -->
+    <!-- Main Container -->
     <div class="w-full max-w-md bg-zinc-900 min-h-screen p-4 flex flex-col justify-between relative shadow-2xl">
         
         <!-- 1. LOGIN SCREEN -->
@@ -24,7 +25,6 @@
                 <h1 class="text-2xl font-black tracking-wider text-yellow-500">DRIVE ZONE</h1>
                 <p class="text-xs text-zinc-400 mt-1">ഡ്രൈവർ ലോഗിൻ ചെയ്യുക</p>
             </div>
-            
             <div class="w-full bg-zinc-800 p-6 rounded-2xl border border-zinc-700 space-y-4">
                 <div>
                     <label class="block text-xs uppercase tracking-wider text-zinc-400 mb-2 font-bold">Driver User ID</label>
@@ -33,381 +33,177 @@
                 <button onclick="handleLogin()" class="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-black py-4 rounded-xl text-lg shadow-lg">
                     LOG IN <i class="fa-solid fa-arrow-right-to-bracket ml-1"></i>
                 </button>
-                <p class="text-[10px] text-center text-zinc-500">Valid IDs: DRV01, DRV02, DRV03, DRV04, DRV05</p>
             </div>
         </div>
 
-        <!-- 2. MAIN APP INTERFACE (ലോഗിൻ ചെയ്താൽ മാത്രം കാണിക്കുന്നത്) -->
+        <!-- 2. MAIN APP INTERFACE -->
         <div id="mainApp" class="hidden flex-grow flex flex-col justify-between h-full">
-            
-            <!-- HEADER -->
             <header class="flex justify-between items-center border-b border-zinc-800 pb-3">
                 <div>
-                    <h2 id="welcomeDriver" class="text-lg font-bold text-yellow-500">Driver: DRV01</h2>
-                    <p class="text-[10px] text-zinc-500">Status: Logged In</p>
+                    <h2 id="welcomeDriver" class="text-lg font-bold text-yellow-500">Driver: -</h2>
+                    <p class="text-[10px] text-zinc-500">Status: <span class="text-green-500">Online & Syncing</span></p>
                 </div>
-                <button onclick="handleLogout()" class="text-xs bg-zinc-800 text-zinc-400 px-3 py-1.5 rounded-lg border border-zinc-700">
-                    Logout <i class="fa-solid fa-right-from-bracket ml-1"></i>
-                </button>
+                <button onclick="handleLogout()" class="text-xs bg-zinc-800 text-zinc-400 px-3 py-1.5 rounded-lg border border-zinc-700">Logout</button>
             </header>
 
-            <!-- MAIN CONTENT AREA -->
             <main class="flex-grow flex flex-col justify-center my-4">
-                
-                <!-- STATE A: NO TRIP STATE (ബുക്കിംഗിനായി കാത്തിരിക്കുന്നു) -->
+                <!-- NO TRIP STATE -->
                 <div id="noTripState" class="text-center py-6">
                     <div class="w-16 h-16 bg-zinc-800 rounded-full flex items-center justify-center mx-auto mb-4 border border-zinc-700">
-                        <i class="fa-solid fa-radar text-2xl text-zinc-600 animate-pulse"></i>
+                        <i class="fa-solid fa-radar text-2xl text-yellow-500/50 animate-pulse"></i>
                     </div>
                     <p class="text-zinc-400 text-md">പുതിയ ബുക്കിംഗുകൾക്കായി കാത്തിരിക്കുന്നു...</p>
-                    
-                    <!-- 📊 ഗൂഗിൾ ഷീറ്റിൽ നിന്ന് വരുന്ന വിവിധ റേറ്റുകൾ ടെസ്റ്റ് ചെയ്യാനുള്ള ഭാഗം -->
-                    <div class="mt-8 p-4 bg-zinc-800/40 rounded-xl border border-zinc-800 text-left">
-                        <p class="text-xs font-bold text-zinc-500 mb-2 uppercase tracking-wider text-center">Test Rate Variations (Google Sheet Demo)</p>
-                        <div class="flex flex-col gap-2">
-                            <button onclick="simulateSheetBooking('Local')" class="w-full bg-zinc-800 hover:bg-zinc-700 text-left text-xs p-3 rounded border border-zinc-700 flex justify-between items-center">
-                                <span>🚗 <strong>Local Ride:</strong> 4h / ₹500 (Extra hr ₹150)</span>
-                                <span class="bg-yellow-500/20 text-yellow-400 px-2 py-0.5 rounded text-[10px] font-bold">Test</span>
-                            </button>
-                            <button onclick="simulateSheetBooking('Outstation')" class="w-full bg-zinc-800 hover:bg-zinc-700 text-left text-xs p-3 rounded border border-zinc-700 flex justify-between items-center">
-                                <span>🏔️ <strong>Outstation:</strong> 4h / ₹800 (Extra hr ₹150)</span>
-                                <span class="bg-yellow-500/20 text-yellow-400 px-2 py-0.5 rounded text-[10px] font-bold">Test</span>
-                            </button>
-                            <button onclick="simulateSheetBooking('Custom')" class="w-full bg-zinc-800 hover:bg-zinc-700 text-left text-xs p-3 rounded border border-zinc-700 flex justify-between items-center">
-                                <span>💎 <strong>Custom User:</strong> 2h / ₹300 (Extra hr ₹100)</span>
-                                <span class="bg-yellow-500/20 text-yellow-400 px-2 py-0.5 rounded text-[10px] font-bold">Test</span>
-                            </button>
-                        </div>
-                    </div>
+                    <p class="text-[10px] text-zinc-600 mt-2 uppercase tracking-widest">Checking Google Sheet every 15s</p>
                 </div>
 
-                <!-- STATE B: ACCEPTED & WAITING TO START (കസ്റ്റമറെ വിളിക്കാനും ട്രിപ്പ് സ്റ്റാർട്ട് ചെയ്യാനും ഉള്ള ഭാഗം) -->
+                <!-- ACCEPTED STATE -->
                 <div id="acceptedState" class="hidden bg-zinc-800/50 p-6 rounded-2xl border border-zinc-800 text-center">
-                    <span id="badgeRideType" class="bg-blue-500/10 text-blue-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                        Booking Accepted
-                    </span>
+                    <span id="badgeRideType" class="bg-blue-500/10 text-blue-400 text-xs font-bold px-3 py-1 rounded-full uppercase">Booking Accepted</span>
                     <div class="mt-4 mb-6">
                         <h3 id="currentCustName" class="text-2xl font-bold">-</h3>
-                        <p id="currentCustRoute" class="text-sm text-zinc-400 mt-1"><i class="fa-solid fa-location-dot text-red-500 mr-1"></i> -</p>
-                        <!-- ഗൂഗിൾ ഷീറ്റിൽ നൽകിയ റേറ്റ് ഡ്രൈവർക്ക് കാണിക്കുന്നു -->
-                        <p id="rateSummaryDetails" class="text-xs text-yellow-500/80 mt-3 bg-yellow-500/5 py-2 px-3 rounded-lg border border-yellow-500/10 font-medium text-left">
-                            -
-                        </p>
+                        <p id="currentCustRoute" class="text-sm text-zinc-400 mt-1">-</p>
+                        <p id="rateSummaryDetails" class="text-xs text-yellow-500/80 mt-3 bg-yellow-500/5 py-2 px-3 rounded-lg border border-yellow-500/10 font-medium text-left">-</p>
                     </div>
-
-                    <!-- കസ്റ്റമറെ വിളിക്കാനുള്ള ഓപ്ഷണൽ ബട്ടൺ -->
-                    <button onclick="confirmAndCall()" class="w-full bg-zinc-800 hover:bg-zinc-700 text-white font-bold py-4 rounded-xl text-md flex justify-center items-center gap-2 border border-zinc-700 mb-6">
-                        <i class="fa-solid fa-phone text-green-500"></i> കസ്റ്റമറെ വിളിക്കണോ? (Optional)
-                    </button>
-
-                    <!-- വണ്ടി എടുക്കുമ്പോൾ മാത്രം അമർത്താനുള്ള START TRIP -->
-                    <button onclick="startTrip()" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-5 rounded-xl text-xl flex justify-center items-center gap-3 shadow-lg shadow-green-600/20">
-                        <i class="fa-solid fa-play text-lg"></i> START TRIP (വണ്ടി എടുത്തു)
-                    </button>
+                    <button onclick="startTrip()" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-5 rounded-xl text-xl shadow-lg">START TRIP</button>
                 </div>
 
-                <!-- STATE C: LIVE TRIP PROGRESS (യാത്ര നടന്നുകൊണ്ടിരിക്കുന്ന അവസ്ഥ) -->
+                <!-- ACTIVE TRIP STATE -->
                 <div id="activeTripState" class="hidden bg-zinc-800/50 p-6 rounded-2xl border border-zinc-800 text-center">
-                    <span class="bg-yellow-500/10 text-yellow-500 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider animate-pulse">
-                        Trip Running
-                    </span>
-                    
-                    <div class="mt-4 mb-4">
-                        <h3 id="runningCustName" class="text-xl font-bold">-</h3>
-                        <p id="runningCustRoute" class="text-xs text-zinc-400 mt-1">-</p>
-                    </div>
-
-                    <!-- LIVE TIMER -->
-                    <div class="bg-black/40 py-4 rounded-xl border border-zinc-800 my-3">
-                        <p class="text-[10px] text-zinc-500 uppercase tracking-widest mb-1">Elapsed Time</p>
-                        <div id="liveTimer" class="text-3xl font-mono font-bold text-yellow-400 tracking-wider">00:00:00</div>
-                    </div>
-
-                    <!-- EXPENSE ADDITION SECTION (ടോൾ, പാർക്കിംഗ് ചിലവുകൾ എഴുതാൻ) -->
+                    <div id="liveTimer" class="text-3xl font-mono font-bold text-yellow-400 tracking-wider mb-4">00:00:00</div>
                     <div class="bg-zinc-900/80 p-4 rounded-xl border border-zinc-800 mb-4 text-left">
-                        <label class="block text-xs font-bold text-zinc-400 mb-1"><i class="fa-solid fa-receipt text-yellow-500 mr-1"></i> മറ്റ് ചിലവുകൾ ഉണ്ടോ? (Toll/Parking)</label>
-                        <div class="relative flex items-center">
-                            <span class="absolute left-3 text-zinc-500 font-bold">₹</span>
-                            <input type="number" id="tripExpenseInput" placeholder="0" class="w-full bg-black/40 border border-zinc-700 rounded-lg pl-8 pr-3 py-2 text-white text-sm focus:outline-none focus:border-yellow-500 font-bold">
-                        </div>
+                        <label class="block text-xs font-bold text-zinc-400 mb-1">Expenses (Toll/Parking)</label>
+                        <input type="number" id="tripExpenseInput" placeholder="0" class="w-full bg-black/40 border border-zinc-700 rounded-lg px-3 py-2 text-white">
                     </div>
-
-                    <!-- END TRIP BUTTON -->
-                    <button onclick="endTrip()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-xl text-lg flex justify-center items-center gap-2 shadow-lg">
-                        <i class="fa-solid fa-stop"></i> Trip അവസാനിപ്പിക്കുക
-                    </button>
+                    <button onclick="endTrip()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-xl">END TRIP</button>
                 </div>
 
-                <!-- STATE D: FARE SCREEN (യാത്ര കഴിഞ്ഞ് പൈസ കാണിക്കുന്ന സ്ക്രീൻ) -->
+                <!-- FARE SCREEN -->
                 <div id="fareScreen" class="hidden bg-zinc-800 p-6 rounded-2xl border-2 border-green-500 text-center">
-                    <i class="fa-solid fa-circle-check text-green-500 text-5xl mb-2"></i>
                     <h2 class="text-xl font-bold text-zinc-300">യാത്ര പൂർത്തിയായി!</h2>
-                    
-                    <div class="my-4 border-t border-b border-zinc-700 py-3 space-y-1.5 text-left text-sm">
-                        <div class="flex justify-between text-zinc-400">
-                            <span>ആകെ ഓടിയ സമയം:</span>
-                            <span id="finalDuration" class="font-bold text-white">-</span>
-                        </div>
-                        <div class="flex justify-between text-zinc-400 text-xs">
-                            <span>ബേസ് വണ്ടിക്കൂലി (<span id="lblBaseHours">4</span>h):</span>
-                            <span id="baseFareDisplay">₹0</span>
-                        </div>
-                        <div class="flex justify-between text-zinc-400 text-xs">
-                            <span>അധിക സമയ കൂലി (മണിക്കൂറിന് ₹<span id="lblExtRate">150</span>):</span>
-                            <span id="extraFareDisplay">₹0</span>
-                        </div>
-                        <div class="flex justify-between text-yellow-500 text-xs font-medium border-t border-dashed border-zinc-700 pt-1.5">
-                            <span>അധിക ചിലവുകൾ (Expenses):</span>
-                            <span id="finalExpenseDisplay">₹0</span>
-                        </div>
-                    </div>
-
-                    <p class="text-xs text-zinc-400 uppercase tracking-wider">ആകെ വാങ്ങേണ്ട തുക</p>
-                    <div id="totalFareDisplay" class="text-5xl font-black text-green-400 my-2">₹0</div>
-
-                    <button onclick="closeFareScreen()" class="w-full bg-zinc-700 hover:bg-zinc-600 text-white font-bold py-3 rounded-xl mt-4">
-                        Done & Go Back
-                    </button>
+                    <div id="totalFareDisplay" class="text-5xl font-black text-green-400 my-4">₹0</div>
+                    <button onclick="closeFareScreen()" class="w-full bg-zinc-700 py-3 rounded-xl">Done</button>
                 </div>
-
             </main>
-
-            <!-- QUICK REPLIES -->
-            <footer id="tripFooter" class="hidden border-t border-zinc-800 pt-3">
-                <div class="grid grid-cols-3 gap-2">
-                    <button onclick="alert('Sent: On my way')" class="bg-zinc-800 text-xs py-2 px-1 rounded border border-zinc-700 truncate">👍 On my way</button>
-                    <button onclick="alert('Sent: Arrived')" class="bg-zinc-800 text-xs py-2 px-1 rounded border border-zinc-700 truncate">📍 Arrived</button>
-                    <button onclick="alert('Sent: In Traffic')" class="bg-zinc-800 text-xs py-2 px-1 rounded border border-zinc-700 truncate">🛑 Traffic</button>
-                </div>
-            </footer>
         </div>
 
-        <!-- 🔔 NEW BOOKING ALERT MODAL -->
-        <div id="bookingAlertModal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
-            <div class="bg-zinc-800 w-full max-w-sm rounded-2xl p-6 border-2 border-yellow-500 text-center shadow-2xl">
-                <div class="w-14 h-14 bg-yellow-500/10 text-yellow-500 rounded-full flex items-center justify-center mx-auto text-xl mb-3 animate-bounce">
-                    <i class="fa-solid fa-bell"></i>
+        <!-- NEW BOOKING MODAL -->
+        <div id="bookingAlertModal" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center p-4 z-50">
+            <div class="bg-zinc-800 w-full max-w-sm rounded-2xl p-6 border-2 border-yellow-500 text-center">
+                <h2 class="text-xl font-black text-yellow-500">NEW BOOKING!</h2>
+                <div class="bg-black/30 p-4 rounded-xl my-4 text-left text-xs space-y-2">
+                    <p><strong>Customer:</strong> <span id="popupCustName">-</span></p>
+                    <p><strong>Route:</strong> <span id="popupCustRoute">-</span></p>
+                    <p><strong>Rate:</strong> <span id="popupRideType" class="text-yellow-400">-</span></p>
                 </div>
-                <h2 class="text-xl font-black text-yellow-500 tracking-wide">NEW BOOKING!</h2>
-                
-                <div class="bg-black/30 p-4 rounded-xl my-4 text-left space-y-2 text-xs border border-zinc-700">
-                    <p><strong class="text-zinc-400">Customer:</strong> <span id="popupCustName">-</span></p>
-                    <p><strong class="text-zinc-400">Route:</strong> <span id="popupCustRoute">-</span></p>
-                    <p><strong class="text-zinc-400">Rate Plan:</strong> <span id="popupRideType" class="text-yellow-400 font-bold">-</span></p>
-                </div>
-
-                <div class="flex gap-3 mt-5">
-                    <button onclick="declineBooking()" class="flex-1 bg-zinc-700 text-white font-bold py-3 rounded-xl text-sm">Decline</button>
-                    <button onclick="acceptBooking()" class="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-xl text-sm shadow-lg">
-                        ACCEPT 👍
-                    </button>
+                <div class="flex gap-3">
+                    <button onclick="declineBooking()" class="flex-1 bg-zinc-700 py-3 rounded-xl">Decline</button>
+                    <button onclick="acceptBooking()" class="flex-1 bg-green-600 py-3 rounded-xl font-bold">ACCEPT 👍</button>
                 </div>
             </div>
         </div>
-
     </div>
 
-    <!-- JAVASCRIPT LOGIC -->
     <script>
-        const ALLOWED_DRIVERS = ["DRV01", "DRV02", "DRV03", "DRV04", "DRV05"];
+        const SHEET_URL = "https://script.google.com/macros/s/AKfycbzvixEMRAsTvzuX3AcJ0eLAPyTD6lm4DEzwlcez80yN_CwksJnGuZFh7lq3uz3IF3jXrw/exec";
         let currentDriverId = "";
-        
-        let startTime;
-        let timerInterval;
-        
-        // 📊 ഷീറ്റിൽ നിന്ന് ഡൈനാമിക് ആയി മാറേണ്ട ഒബ്ജക്റ്റ്
-        let activeBookingData = {
-            customerName: "",
-            route: "",
-            rideType: "",
-            baseHours: 4,
-            baseFare: 500,
-            extraHourRate: 150,
-            phone: ""
-        };
+        let lastProcessedBookingId = "";
+        let startTime, timerInterval;
+        let activeBookingData = {};
 
-        // 1. LOGIN MANAGEMENT
+        // 1. Login
         function handleLogin() {
-            const idInput = document.getElementById('driverIdInput').value.trim().toUpperCase();
-            if (ALLOWED_DRIVERS.includes(idInput)) {
-                currentDriverId = idInput;
-                document.getElementById('welcomeDriver').innerText = `Driver: ${currentDriverId}`;
+            const id = document.getElementById('driverIdInput').value.trim().toUpperCase();
+            if (id) {
+                currentDriverId = id;
+                document.getElementById('welcomeDriver').innerText = `Driver: ${id}`;
                 document.getElementById('loginScreen').classList.add('hidden');
                 document.getElementById('mainApp').classList.remove('hidden');
-            } else {
-                alert("തെറ്റായ User ID! (DRV01 മുതൽ DRV05 വരെയുള്ളവ ഉപയോഗിക്കുക)");
+                startSync();
             }
         }
 
-        document.getElementById('driverIdInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') handleLogin();
-        });
+        function handleLogout() { location.reload(); }
 
-        function handleLogout() {
-            currentDriverId = "";
-            document.getElementById('driverIdInput').value = "";
-            document.getElementById('mainApp').classList.add('hidden');
-            document.getElementById('loginScreen').classList.remove('hidden');
-            resetAppStates();
+        // 2. Google Sheets Sync
+        async function startSync() {
+            fetchFromSheet();
+            setInterval(fetchFromSheet, 15000); // Check every 15 seconds
         }
 
-        // 2. DYNAMIC RATE SIMULATION (ഗൂഗിൾ ഷീറ്റിൽ നിന്ന് വരുന്ന മാറ്റങ്ങൾ)
-        function simulateSheetBooking(type) {
-            if (type === 'Local') {
-                activeBookingData = {
-                    customerName: "അനീഷ് ബാബു",
-                    route: "Ernakulam to Aluva",
-                    rideType: "Local Ride",
-                    baseHours: 4,
-                    baseFare: 500,
-                    extraHourRate: 150,
-                    phone: "9876543210"
-                };
-            } else if (type === 'Outstation') {
-                activeBookingData = {
-                    customerName: "അനീഷ് ബാബു (Outstation)",
-                    route: "Kochi to Munnar",
-                    rideType: "Outstation Ride",
-                    baseHours: 4,
-                    baseFare: 800,
-                    extraHourRate: 150,
-                    phone: "9895000000"
-                };
-            } else if (type === 'Custom') {
-                // ഷീറ്റിൽ നീ കൊടുക്കുന്ന മാറ്റിമറിച്ച റേറ്റുകൾ ഈ രീതിയിലാണ് സിസ്റ്റത്തിലേക്ക് കയറുന്നത്
-                activeBookingData = {
-                    customerName: "വി.ഐ.പി കസ്റ്റമർ (ആൽബർട്ട്)",
-                    route: "Kochi Airport Drop",
-                    rideType: "Special Custom Rate",
-                    baseHours: 2,
-                    baseFare: 300,
-                    extraHourRate: 100,
-                    phone: "9447000000"
-                };
-            }
+        async function fetchFromSheet() {
+            if (!currentDriverId || !document.getElementById('acceptedState').classList.contains('hidden') || !document.getElementById('activeTripState').classList.contains('hidden')) return;
 
-            // പോപ്പ്-അപ്പ് അലേർട്ടിലേക്ക് പുതിയ വിവരങ്ങൾ നൽകുന്നു
+            try {
+                const res = await fetch(SHEET_URL);
+                const data = await res.json();
+                
+                // Find the last row for THIS driver that is "Pending" or "New"
+                const relevantBookings = data.filter(b => b["Driver ID"] === currentDriverId);
+                if (relevantBookings.length > 0) {
+                    const latest = relevantBookings[relevantBookings.length - 1];
+                    const bookingId = latest["Booking ID"] || latest["Customer Name"];
+
+                    if (bookingId !== lastProcessedBookingId) {
+                        lastProcessedBookingId = bookingId;
+                        activeBookingData = {
+                            customerName: latest["Customer Name"],
+                            route: latest["Route"],
+                            rideType: latest["Ride Type"],
+                            baseHours: parseInt(latest["Base Hours"] || 4),
+                            baseFare: parseInt(latest["Base Fare (₹)"] || 500),
+                            extraHourRate: parseInt(latest["Extra Hour Rate (₹)"] || 150)
+                        };
+                        showPopup();
+                    }
+                }
+            } catch (e) { console.error("Sync Error:", e); }
+        }
+
+        function showPopup() {
             document.getElementById('popupCustName').innerText = activeBookingData.customerName;
             document.getElementById('popupCustRoute').innerText = activeBookingData.route;
             document.getElementById('popupRideType').innerText = `${activeBookingData.rideType} (₹${activeBookingData.baseFare}/${activeBookingData.baseHours}h)`;
-            
             document.getElementById('bookingAlertModal').classList.remove('hidden');
         }
 
-        function declineBooking() {
-            document.getElementById('bookingAlertModal').classList.add('hidden');
-        }
-
-        // 3. TRIP ACCEPTANCE
         function acceptBooking() {
             document.getElementById('bookingAlertModal').classList.add('hidden');
             document.getElementById('noTripState').classList.add('hidden');
-            
-            // അക്സെപ്റ്റ് ചെയ്ത സ്ക്രീനിൽ റേറ്റുകൾ മാറ്റുന്നു
-            document.getElementById('badgeRideType').innerText = activeBookingData.rideType;
             document.getElementById('currentCustName').innerText = activeBookingData.customerName;
             document.getElementById('currentCustRoute').innerText = activeBookingData.route;
-            document.getElementById('rateSummaryDetails').innerHTML = `
-                <strong>പാക്കേജ് വിവരങ്ങൾ:</strong><br>
-                • അടിസ്ഥാന വണ്ടിക്കൂലി: ആദ്യ <strong>${activeBookingData.baseHours} മണിക്കൂറിന് ₹${activeBookingData.baseFare}</strong><br>
-                • അധിക സമയ ചാർജ്: അത് കഴിഞ്ഞാൽ മണിക്കൂറിന് <strong>₹${activeBookingData.extraHourRate}</strong> വീതം.
-            `;
-            
+            document.getElementById('rateSummaryDetails').innerHTML = `<b>Package:</b> ₹${activeBookingData.baseFare} for ${activeBookingData.baseHours} hrs. Extra hr: ₹${activeBookingData.extraHourRate}`;
             document.getElementById('acceptedState').classList.remove('hidden');
         }
 
-        // 📞 OPTIONAL CALL LOGIC
-        function confirmAndCall() {
-            if (confirm(`${activeBookingData.customerName}-നെ ഫോണിൽ വിളിക്കണോ?`)) {
-                window.location.href = `tel:${activeBookingData.phone}`;
-            }
-        }
+        function declineBooking() { document.getElementById('bookingAlertModal').classList.add('hidden'); }
 
-        // 4. START TRIP (ടൈമർ ഇവിടെയാണ് ഓടിത്തുടങ്ങുന്നത്)
+        // 3. Trip Logic
         function startTrip() {
             document.getElementById('acceptedState').classList.add('hidden');
-            
-            document.getElementById('runningCustName').innerText = activeBookingData.customerName;
-            document.getElementById('runningCustRoute').innerText = activeBookingData.route;
             document.getElementById('activeTripState').classList.remove('hidden');
-            document.getElementById('tripFooter').classList.remove('hidden');
-            document.getElementById('tripExpenseInput').value = ""; // മുൻപത്തെ ചിലവുകൾ മാറ്റുന്നു
-            
             startTime = new Date();
-            timerInterval = setInterval(updateLiveTimer, 1000);
+            timerInterval = setInterval(() => {
+                let diff = new Date() - startTime;
+                let hrs = Math.floor(diff/3600000).toString().padStart(2,'0');
+                let mins = Math.floor((diff%3600000)/60000).toString().padStart(2,'0');
+                let secs = Math.floor((diff%60000)/1000).toString().padStart(2,'0');
+                document.getElementById('liveTimer').innerText = `${hrs}:${mins}:${secs}`;
+            }, 1000);
         }
 
-        function updateLiveTimer() {
-            let now = new Date();
-            let diff = now - startTime;
-            let hrs = Math.floor(diff / (1000 * 60 * 60));
-            let mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            let secs = Math.floor((diff % (1000 * 60)) / 1000);
-
-            hrs = hrs < 10 ? '0' + hrs : hrs;
-            mins = mins < 10 ? '0' + mins : mins;
-            secs = secs < 10 ? '0' + secs : secs;
-
-            document.getElementById('liveTimer').innerText = `${hrs}:${mins}:${secs}`;
-        }
-
-        // 5. END TRIP & DYNAMIC FARE CALCULATION
         function endTrip() {
             clearInterval(timerInterval);
-            let endTime = new Date();
-            let diff = endTime - startTime;
-
-            let totalMinutes = Math.floor(diff / (1000 * 60)); 
+            let durationMins = Math.floor((new Date() - startTime)/60000);
+            let extraMins = Math.max(0, durationMins - (activeBookingData.baseHours * 60));
+            let extraFare = Math.ceil(extraMins/60) * activeBookingData.extraHourRate;
+            let total = activeBookingData.baseFare + extraFare + (parseFloat(document.getElementById('tripExpenseInput').value) || 0);
             
-            // --- 🧪 ഡെമോ ചെക്കിംഗിനായി ഇവിടെ ആകെ ഓടിയ സമയം 5 മണിക്കൂർ (300 മിനിറ്റ്) എന്ന് സെറ്റ് ചെയ്യുന്നു ---
-            // ലൈവ് സമയം കൃത്യമായി കണക്കാക്കാൻ താഴത്തെ വരി ഡിലീറ്റ് ചെയ്യുകയോ കമന്റ് ചെയ്യുകയോ ചെയ്യാം.
-            totalMinutes = 300; 
-
-            let finalHrs = Math.floor(totalMinutes / 60);
-            let finalMins = totalMinutes % 60;
-
-            // 💰 ഗൂഗിൾ ഷീറ്റിൽ നിന്ന് വന്ന റേറ്റുകൾ വെച്ചുള്ള ഡൈനാമിക് കാൽക്കുലേഷൻ
-            let baseHoursInMinutes = activeBookingData.baseHours * 60;
-            let baseFare = activeBookingData.baseFare;
-            let extraFare = 0;
-
-            if (totalMinutes > baseHoursInMinutes) {
-                let extraMinutes = totalMinutes - baseHoursInMinutes;
-                // മിനിറ്റുകളെ മണിക്കൂറിലേക്ക് മാറ്റി ആ കസ്റ്റമറുടെ Extra Hour Rate കൊണ്ട് ഗുണിക്കുന്നു
-                extraFare = Math.ceil((extraMinutes / 60) * activeBookingData.extraHourRate);
-            }
-
-            // മറ്റ് ചിലവുകൾ കൂട്ടുന്നു
-            let expenseAmt = parseFloat(document.getElementById('tripExpenseInput').value) || 0;
-            let totalToCollect = baseFare + extraFare + expenseAmt;
-
-            // ഫൈനൽ സ്ക്രീൻ ലേബലുകൾ മാറുന്നു
-            document.getElementById('lblBaseHours').innerText = activeBookingData.baseHours;
-            document.getElementById('lblExtRate').innerText = activeBookingData.extraHourRate;
-
-            document.getElementById('finalDuration').innerText = `${finalHrs} Std ${finalMins} Min`;
-            document.getElementById('baseFareDisplay').innerText = `₹${baseFare}`;
-            document.getElementById('extraFareDisplay').innerText = `₹${extraFare}`;
-            document.getElementById('finalExpenseDisplay').innerText = `₹${expenseAmt}`;
-            document.getElementById('totalFareDisplay').innerText = `₹${totalToCollect}`;
-
+            document.getElementById('totalFareDisplay').innerText = `₹${total}`;
             document.getElementById('activeTripState').classList.add('hidden');
-            document.getElementById('tripFooter').classList.add('hidden');
             document.getElementById('fareScreen').classList.remove('hidden');
         }
 
-        function closeFareScreen() {
-            document.getElementById('fareScreen').classList.add('hidden');
-            resetAppStates();
-        }
-
-        function resetAppStates() {
-            document.getElementById('noTripState').classList.remove('hidden');
-            document.getElementById('acceptedState').classList.add('hidden');
-            document.getElementById('activeTripState').classList.add('hidden');
-            document.getElementById('tripFooter').classList.add('hidden');
-            document.getElementById('liveTimer').innerText = "00:00:00";
-        }
+        function closeFareScreen() { location.reload(); }
     </script>
 </body>
 </html>
