@@ -1,234 +1,269 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="ml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vaishnav KC | Film Editor & Motion Designer</title>
-    <!-- Tailwind CSS CDN -->
+    <title>Call Driver Dashboard</title>
+    <!-- Tailwind CSS (Styling എളുപ്പമാക്കാൻ) -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- Google Fonts: Syne & Plus Jakarta Sans -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-    
+    <!-- FontAwesome (Icons ലഭിക്കാൻ) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* മൊബൈൽ ലുക്ക് നിലനിർത്താൻ */
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #0a0a0c;
-        }
-        .font-syne {
-            font-family: 'Syne', sans-serif;
-        }
-        /* Custom scrollbar to match dark theme */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0a0a0c;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #22c55e;
-            border-radius: 4px;
+            background-color: #121212;
+            color: #ffffff;
+            font-family: system-ui, -apple-system, sans-serif;
         }
     </style>
 </head>
-<body class="text-gray-200 overflow-x-hidden">
+<body class="flex justify-center min-h-screen">
 
-    <!-- HEADER / NAVIGATION -->
-    <header class="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-[#0a0a0c]/40 border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="#" class="font-syne text-xl tracking-wider text-white font-extrabold">
-                VKC<span class="text-green-500">.</span>MOTION
-            </a>
-            <nav class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide text-gray-400">
-                <a href="#work" class="hover:text-white transition-colors">Selected Work</a>
-                <a href="#about" class="hover:text-white transition-colors">About</a>
-                <a href="#slider-section" class="hover:text-white transition-colors">Grading Sandbox</a>
-                <a href="#contact" class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white hover:bg-green-500 hover:text-black hover:border-green-500 transition-all duration-300">Let's Cut</a>
-            </nav>
-        </div>
-    </header>
-
-    <!-- HERO SECTION (Cinematic Showreel) -->
-    <section class="relative h-screen w-full flex items-center justify-center overflow-hidden">
-        <!-- Video Background Overlay for Cinematic Mood -->
-        <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0c] via-[#0a0a0c]/50 to-transparent z-10"></div>
-        <div class="absolute inset-0 bg-black/40 z-10"></div>
+    <!-- Main Container (Mobile Frame) -->
+    <div class="w-full max-w-md bg-zinc-900 min-h-screen p-4 flex flex-col justify-between relative shadow-2xl">
         
-        <!-- Placeholder for background video loop -->
-        <div class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1925&auto=format&fit=crop');">
-            <!-- Replace the style with an actual video tag when ready:
-            <video autoplay muted loop playsinline class="w-full h-full object-cover">
-                <source src="your-showreel-loop.mp4" type="video/mp4">
-            </video> -->
-        </div>
-
-        <!-- Hero Content -->
-        <div class="relative z-20 text-center px-4 max-w-4xl mx-auto mt-16">
-            <span class="text-xs font-bold tracking-[0.3em] text-green-400 uppercase bg-green-500/10 px-4 py-1.5 rounded-full border border-green-500/20">Film Editor & Colorist</span>
-            <h1 class="font-syne text-5xl md:text-8xl font-black text-white mt-6 tracking-tight leading-none">
-                CRAFTING <span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-100 to-gray-500">VISUAL</span> STORIES
-            </h1>
-            <p class="mt-6 text-gray-400 text-lg md:text-xl max-w-2xl mx-auto font-light">
-                Premium high-fidelity post-production for commercial ads, cinema narrative, and high-energy motion aesthetics.
-            </p>
-            <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#work" class="px-8 py-4 bg-green-500 hover:bg-green-400 text-black font-semibold rounded-lg transition-all duration-300 transform hover:-translate-y-0.5 shadow-lg shadow-green-500/20">
-                    Play Showreel
-                </a>
-                <a href="#contact" class="px-8 py-4 bg-white/5 hover:bg-white/10 text-white border border-white/10 font-semibold rounded-lg transition-all duration-300 backdrop-blur-sm">
-                    Get in Touch
-                </a>
-            </div>
-        </div>
-        
-        <!-- Animated Scroll Indicator -->
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex flex-col items-center gap-2">
-            <span class="text-[10px] tracking-[0.2em] text-gray-500 uppercase">Scroll to Explore</span>
-            <div class="w-[1px] h-12 bg-gradient-to-b from-green-500 to-transparent animate-pulse"></div>
-        </div>
-    </section>
-
-    <!-- SELECTED WORK / PORTFOLIO -->
-    <section id="work" class="py-32 px-6 max-w-7xl mx-auto">
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+        <!-- HEADER SECTION -->
+        <header class="flex justify-between items-center border-b border-zinc-800 pb-3">
             <div>
-                <span class="text-xs font-bold tracking-widest text-green-500 uppercase">// 01. RECENT CUTS</span>
-                <h2 class="font-syne text-4xl md:text-6xl font-extrabold text-white mt-2">Selected Projects</h2>
+                <h1 class="text-xl font-bold text-yellow-500">Zenvix Drivers</h1>
+                <p class="text-xs text-zinc-400">Driver Mode: Active</p>
             </div>
-            <p class="text-gray-400 max-w-sm font-light">A showcase of narrative pacing, cinematic colors, and precise structural editing.</p>
-        </div>
+            <!-- Online / Offline Toggle -->
+            <button id="statusBtn" onclick="toggleStatus()" class="px-4 py-2 bg-green-600 font-bold rounded-full text-sm shadow-md transition-all">
+                <i class="fa-solid fa-circle text-xs mr-1 animate-pulse"></i> ONLINE
+            </button>
+        </header>
 
-        <!-- Glassmorphism Grid Layout -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- Project Card 1 -->
-            <div class="group relative bg-white/[0.02] border border-white/5 rounded-2xl p-4 backdrop-blur-xl hover:border-white/10 transition-all duration-500">
-                <div class="relative aspect-video rounded-xl overflow-hidden bg-gray-900">
-                    <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=1470&auto=format&fit=crop" alt="Project 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out">
-                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <span class="w-14 h-14 bg-white text-black rounded-full flex items-center justify-center font-bold tracking-wider text-xs uppercase shadow-xl transform scale-75 group-hover:scale-100 transition-transform duration-300">View</span>
-                    </div>
-                </div>
-                <div class="mt-6 flex justify-between items-start">
-                    <div>
-                        <h3 class="font-syne text-xl font-bold text-white">Chasing the Horizon</h3>
-                        <p class="text-sm text-gray-400 mt-1">Cinematic Travel Campaign</p>
-                    </div>
-                    <span class="text-xs border border-white/10 px-3 py-1 rounded-full bg-white/5 text-gray-300 font-medium">Editing / Grading</span>
-                </div>
-            </div>
-
-            <!-- Project Card 2 -->
-            <div class="group relative bg-white/[0.02] border border-white/5 rounded-2xl p-4 backdrop-blur-xl hover:border-white/10 transition-all duration-500">
-                <div class="relative aspect-video rounded-xl overflow-hidden bg-gray-900">
-                    <img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=1470&auto=format&fit=crop" alt="Project 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out">
-                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <span class="w-14 h-14 bg-white text-black rounded-full flex items-center justify-center font-bold tracking-wider text-xs uppercase shadow-xl transform scale-75 group-hover:scale-100 transition-transform duration-300">View</span>
-                    </div>
-                </div>
-                <div class="mt-6 flex justify-between items-start">
-                    <div>
-                        <h3 class="font-syne text-xl font-bold text-white">The Rhythm of Concrete</h3>
-                        <p class="text-sm text-gray-400 mt-1">Street Culture Commercial</p>
-                    </div>
-                    <span class="text-xs border border-white/10 px-3 py-1 rounded-full bg-white/5 text-gray-300 font-medium">Motion / Sound Design</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- INTERACTIVE BEFORE/AFTER SLIDER SECTION -->
-    <section id="slider-section" class="py-24 bg-black/30 border-y border-white/5">
-        <div class="max-w-4xl mx-auto px-6">
-            <div class="text-center mb-12">
-                <span class="text-xs font-bold tracking-widest text-green-500 uppercase">// INTERACTIVE COLOR GRADING LAB</span>
-                <h2 class="font-syne text-3xl md:text-5xl font-bold text-white mt-2">Raw Log vs Final Grade</h2>
-                <p class="text-gray-400 mt-3 max-w-lg mx-auto font-light text-sm">Drag the center slider right and left to preview the depth of professional color grading transforms.</p>
-            </div>
-
-            <!-- The Slider Component Wrapper -->
-            <div id="beforeAfterSlider" class="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border border-white/10 select-none cursor-ew-resize">
-                <!-- Before Image (LOG Footage Placeholder) -->
-                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1364&auto=format&fit=crop&sat=-60&contrast=-20" alt="Raw Log" class="absolute inset-0 w-full h-full object-cover pointer-events-none">
+        <!-- MAIN CONTENT AREA -->
+        <main class="flex-grow flex flex-col justify-center my-4">
+            
+            <!-- NO TRIP STATE (ഡ്യൂട്ടി ഇല്ലാത്തപ്പോൾ കാണിക്കുന്നത്) -->
+            <div id="noTripState" class="text-center py-12">
+                <i class="fa-solid fa-steering-wheel text-6xl text-zinc-700 mb-4 block"></i>
+                <p class="text-zinc-400 text-lg">പുതിയ ബുക്കിംഗുകൾക്കായി കാത്തിരിക്കുന്നു...</p>
+                <p class="text-xs text-zinc-600 mt-1">ഗൂഗിൾ ഷീറ്റിൽ അഡ്മിൻ അപ്‌ഡേറ്റ് ചെയ്യുമ്പോൾ ഇവിടെ കാണാം.</p>
                 
-                <!-- After Image (Color Graded Overlay View) -->
-                <div id="afterImageContainer" class="absolute inset-0 w-1/2 h-full overflow-hidden pointer-events-none">
-                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1364&auto=format&fit=crop" alt="Color Graded" class="absolute inset-0 w-full h-full object-cover max-w-none pointer-events-none">
+                <!-- ഡെമോയ്ക്ക് വേണ്ടി ടെസ്റ്റ് ചെയ്യാനുള്ള ബട്ടൺ (ഗൂഗിൾ ഷീറ്റിൽ ബുക്കിംഗ് വരുമ്പോൾ ഇത് ഓട്ടോമാറ്റിക് ആയി വരും) -->
+                <button onclick="showNewBookingAlert()" class="mt-8 px-4 py-2 bg-zinc-800 text-zinc-400 text-xs rounded border border-zinc-700">
+                    Test Booking Alert (Demo)
+                </button>
+            </div>
+
+            <!-- ACTIVE TRIP STATE (വണ്ടി ഓടുമ്പോൾ കാണിക്കുന്ന ലൈവ് ടൈമർ) -->
+            <div id="activeTripState" class="hidden bg-zinc-800/50 p-6 rounded-2xl border border-zinc-800 text-center">
+                <span class="bg-yellow-500/10 text-yellow-500 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                    Trip In Progress
+                </span>
+                
+                <!-- കസ്റ്റമർ വിവരങ്ങൾ -->
+                <div class="mt-4 mb-6">
+                    <h3 id="tripCustomerName" class="text-2xl font-bold">അനീഷ് ബാബു</h3>
+                    <p id="tripRoute" class="text-sm text-zinc-400 mt-1"><i class="fa-solid fa-location-dot text-red-500 mr-1"></i> Ernakulam to Aluva</p>
                 </div>
 
-                <!-- Label Tags -->
-                <span class="absolute bottom-4 right-4 bg-black/70 backdrop-blur-md border border-white/10 text-[10px] uppercase font-bold px-3 py-1 rounded tracking-wider z-20 text-gray-400">RAW LOG</span>
-                <span class="absolute bottom-4 left-4 bg-green-500 text-black text-[10px] uppercase font-bold px-3 py-1 rounded tracking-wider z-20">FINAL GRADE</span>
+                <!-- LIVE TIMER DISPLAY -->
+                <div class="bg-black/40 py-6 rounded-xl border border-zinc-800 my-4">
+                    <p class="text-xs text-zinc-500 uppercase tracking-widest mb-1">Elapsed Time</p>
+                    <div id="liveTimer" class="text-4xl font-mono font-bold text-yellow-400 tracking-wider">00:00:00</div>
+                </div>
 
-                <!-- Physical Handle Line -->
-                <div id="sliderHandle" class="absolute top-0 bottom-0 left-1/2 w-[2px] bg-white z-30">
-                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white text-black rounded-full shadow-xl flex items-center justify-center font-bold text-xs">
-                        ↔
+                <!-- QUICK CALL BUTTON -->
+                <a id="customerCallBtn" href="tel:1234567890" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl text-lg flex justify-center items-center gap-2 shadow-lg mb-4">
+                    <i class="fa-solid fa-phone"></i> കസ്റ്റമറെ വിളിക്കുക
+                </a>
+
+                <!-- END TRIP BUTTON -->
+                <button onclick="endTrip()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-xl text-lg flex justify-center items-center gap-2 shadow-lg">
+                    <i class="fa-solid fa-stop"></i> Trip അവസാനിപ്പിക്കുക
+                </button>
+            </div>
+
+            <!-- FARE CALCULATION SCREEN (യാത്ര കഴിഞ്ഞു പൈസ കാണിക്കുന്ന ഭാഗം) -->
+            <div id="fareScreen" class="hidden bg-zinc-800 p-6 rounded-2xl border-2 border-green-500 text-center animate-fade-in">
+                <i class="fa-solid fa-circle-check text-green-500 text-5xl mb-2"></i>
+                <h2 class="text-xl font-bold text-zinc-300">യാത്ര പൂർത്തിയായി!</h2>
+                
+                <div class="my-6 border-t border-b border-zinc-700 py-4 space-y-2 text-left">
+                    <div class="flex justify-between text-zinc-400">
+                        <span>ആകെ ഓടിയ സമയം:</span>
+                        <span id="finalDuration" class="font-bold text-white">2 Hrs 15 Mins</span>
+                    </div>
+                    <div class="flex justify-between text-zinc-400 text-xs">
+                        <span>ബേസ് റേറ്റ് (ആദ്യ 1 മണിക്കൂർ):</span>
+                        <span>₹200</span>
+                    </div>
+                    <div class="flex justify-between text-zinc-400 text-xs">
+                        <span>അധിക സമയം (മണിക്കൂറിന് ₹150):</span>
+                        <span id="extraFareCalc">₹200</span>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- CONTACT / FOOTER -->
-    <section id="contact" class="py-32 px-6 max-w-3xl mx-auto text-center">
-        <span class="text-xs font-bold tracking-widest text-green-500 uppercase">// HAVE A PROJECT IN MIND?</span>
-        <h2 class="font-syne text-4xl md:text-7xl font-black text-white mt-4 tracking-tight">Let's Edit Something Beautiful.</h2>
-        <p class="text-gray-400 mt-6 text-lg font-light">Available for remote feature work, commercial campaigns, and freelance creative direction.</p>
-        
-        <div class="mt-12">
-            <a href="mailto:hello@example.com" class="text-2xl md:text-4xl font-syne font-bold text-white hover:text-green-400 transition-colors underline decoration-green-500 underline-offset-8">
-                hello@yourdomain.com
-            </a>
-        </div>
-        
-        <footer class="mt-32 pt-8 border-t border-white/5 text-xs text-gray-600 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p>&copy; 2026 VKC.MOTION. Built from scratch with cutting intent.</p>
-            <div class="flex gap-6">
-                <a href="#" class="hover:text-white transition-colors">Instagram</a>
-                <a href="#" class="hover:text-white transition-colors">Vimeo</a>
-                <a href="#" class="hover:text-white transition-colors">LinkedIn</a>
+                <!-- വാങ്ങേണ്ട തുക -->
+                <p class="text-xs text-zinc-400 uppercase tracking-wider">കസ്റ്റമറിൽ നിന്ന് വാങ്ങേണ്ട തുക</p>
+                <div id="totalFareDisplay" class="text-5xl font-black text-green-400 my-2">₹400</div>
+
+                <!-- ദാസേട്ടന്റെ ഗൂഗിൾ പേ QR Code വരാൻ (വെറുതെ ഒരു ഐക്കൺ വെച്ചിരിക്കുന്നു) -->
+                <div class="bg-white p-3 w-32 h-32 mx-auto my-4 rounded-lg flex items-center justify-center text-black font-bold text-xs">
+                    [ G-Pay QR Code ]
+                </div>
+
+                <button onclick="closeFareScreen()" class="w-full bg-zinc-700 hover:bg-zinc-600 text-white font-bold py-3 rounded-xl mt-2">
+                    Done & Go Back
+                </button>
+            </div>
+
+        </main>
+
+        <!-- FOOTER / QUICK REPLIES (ട്രിപ്പ് നടക്കുമ്പോൾ മാത്രം കാണാം) -->
+        <footer id="tripFooter" class="hidden border-t border-zinc-800 pt-3">
+            <p class="text-xs text-zinc-500 mb-2 font-medium">Quick Replies (One-Tap):</p>
+            <div class="grid grid-cols-3 gap-2">
+                <button onclick="alert('Sent: On my way')" class="bg-zinc-800 text-xs py-2 px-1 rounded border border-zinc-700 truncate">👍 On my way</button>
+                <button onclick="alert('Sent: Arrived')" class="bg-zinc-800 text-xs py-2 px-1 rounded border border-zinc-700 truncate">📍 Arrived</button>
+                <button onclick="alert('Sent: Heavy Traffic')" class="bg-zinc-800 text-xs py-2 px-1 rounded border border-zinc-700 truncate">🛑 Traffic</button>
             </div>
         </footer>
-    </section>
 
-    <!-- BEFORE/AFTER SLIDER INTERACTIVE JAVASCRIPT -->
+        <!-- 🔔 GOOGLE SHEET BOOKING ALERT POP-UP (ഗൂഗിൾ ഷീറ്റിൽ പേരിടുമ്പോൾ വരുന്നത്) -->
+        <div id="bookingAlertModal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
+            <div class="bg-zinc-800 w-full max-w-sm rounded-2xl p-6 border-2 border-yellow-500 text-center shadow-2xl animate-bounce-short">
+                <div class="w-16 h-16 bg-yellow-500/10 text-yellow-500 rounded-full flex items-center justify-center mx-auto text-2xl mb-4 animate-pulse">
+                    <i class="fa-solid fa-bell"></i>
+                </div>
+                <h2 class="text-2xl font-black text-yellow-500 tracking-wide">NEW BOOKING!</h2>
+                <p class="text-sm text-zinc-400 mt-1">നിങ്ങൾക്ക് പുതിയൊരു ഓട്ടം വന്നിട്ടുണ്ട്.</p>
+                
+                <div class="bg-black/30 p-4 rounded-xl my-4 text-left space-y-2 text-sm border border-zinc-700">
+                    <p><strong class="text-zinc-400">Customer:</strong> <span id="popupName">അനീഷ് ബാബു</span></p>
+                    <p><strong class="text-zinc-400">Route:</strong> <span id="popupRoute">Ernakulam -> Aluva</span></p>
+                    <p><strong class="text-zinc-400">Rate Type:</strong> <span>Time Based (Hourly)</span></p>
+                </div>
+
+                <div class="flex gap-3 mt-6">
+                    <button onclick="declineBooking()" class="flex-1 bg-zinc-700 text-white font-bold py-3 rounded-xl">Decline</button>
+                    <button onclick="acceptBooking()" class="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-xl shadow-lg shadow-green-600/20">
+                        ACCEPT 👍
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JAVASCRIPT LOGIC (ടൈമറും പൈസ കണക്കാക്കലും) -->
     <script>
-        const slider = document.getElementById('beforeAfterSlider');
-        const afterContainer = document.getElementById('afterImageContainer');
-        const handle = document.getElementById('sliderHandle');
+        let isOnline = true;
+        let startTime;
+        let timerInterval;
+        
+        // 💰 റേറ്റ് സെറ്റിങ്സ് (നീ ആവശ്യാനുസരണം മാറ്റുക)
+        const BASE_FARE = 200; // ആദ്യ 1 മണിക്കൂറിന് 200 രൂപ
+        const PER_HOUR_FARE = 150; // അത് കഴിഞ്ഞുള്ള ഓരോ മണിക്കൂറിനും 150 രൂപ വീതം
 
-        // Dynamically fix width of nested image inside clip container to layout boundaries
-        const nestedImage = afterContainer.querySelector('img');
-        function adjustImageWidth() {
-            nestedImage.style.width = slider.offsetWidth + 'px';
+        // 1. ഓൺലൈൻ / ഓഫ്ലൈൻ സ്വിച്ച്
+        function toggleStatus() {
+            const btn = document.getElementById('statusBtn');
+            isOnline = !isOnline;
+            if(isOnline) {
+                btn.className = "px-4 py-2 bg-green-600 font-bold rounded-full text-sm shadow-md transition-all";
+                btn.innerHTML = `<i class="fa-solid fa-circle text-xs mr-1 animate-pulse"></i> ONLINE`;
+            } else {
+                btn.className = "px-4 py-2 bg-red-600 font-bold rounded-full text-sm shadow-md transition-all";
+                btn.innerHTML = `<i class="fa-solid fa-circle text-xs mr-1"></i> OFFLINE`;
+            }
         }
-        window.addEventListener('resize', adjustImageWidth);
-        adjustImageWidth();
 
-        // Calculate split percentage based on cursor positions
-        function moveSlider(x) {
-            const rect = slider.getBoundingClientRect();
-            let position = ((x - rect.left) / rect.width) * 100;
+        // 2. ഗൂഗിൾ ഷീറ്റിൽ അഡ്മിൻ പേരിടുമ്പോൾ വരുന്ന നോട്ടിഫിക്കേഷൻ (Demo)
+        function showNewBookingAlert() {
+            if(!isOnline) {
+                alert("ഡ്രൈവർ ഓഫ്ലൈൻ ആണ്! ബുക്കിംഗ് കിട്ടില്ല.");
+                return;
+            }
+            document.getElementById('bookingAlertModal').classList.remove('hidden');
+            // താല്പര്യമുണ്ടെങ്കിൽ ഒരു നോട്ടിഫിക്കേഷൻ സൗണ്ട് ഇവിടെ ആഡ് ചെയ്യാം
+        }
+
+        function declineBooking() {
+            document.getElementById('bookingAlertModal').classList.add('hidden');
+        }
+
+        // 3. ട്രിപ്പ് ACCEPT ചെയ്യുമ്പോൾ ടൈമർ സ്റ്റാർട്ട് ചെയ്യുന്നു
+        function acceptBooking() {
+            document.getElementById('bookingAlertModal').classList.add('hidden');
+            document.getElementById('noTripState').classList.add('hidden');
+            document.getElementById('activeTripState').classList.remove('hidden');
+            document.getElementById('tripFooter').classList.remove('hidden');
             
-            // Set safety boundaries
-            if (position < 0) position = 0;
-            if (position > 100) position = 100;
-
-            afterContainer.style.width = position + '%';
-            handle.style.left = position + '%';
+            // സമയം കണക്കാക്കാൻ തുടങ്ങുന്നു
+            startTime = new Date();
+            timerInterval = setInterval(updateLiveTimer, 1000);
         }
 
-        // Mouse & Touch events integration
-        let isDragging = false;
+        // 4. ലൈവ് ആയി സ്ക്രീനിൽ സെക്കൻഡുകൾ ഓടിക്കുന്നത്
+        function updateLiveTimer() {
+            let now = new Date();
+            let diff = now - startTime; // മില്ലിസെക്കൻഡിൽ
 
-        slider.addEventListener('mousedown', (e) => { isDragging = true; moveSlider(e.clientX); });
-        window.addEventListener('mouseup', () => isDragging = false);
-        window.addEventListener('mousemove', (e) => { if (!isDragging) return; moveSlider(e.clientX); });
+            let hrs = Math.floor(diff / (1000 * 60 * 60));
+            let mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            let secs = Math.floor((diff % (1000 * 60)) / 1000);
 
-        slider.addEventListener('touchstart', (e) => { isDragging = true; moveSlider(e.touches[0].clientX); });
-        window.addEventListener('touchend', () => isDragging = false);
-        window.addEventListener('touchmove', (e) => { if (!isDragging) return; moveSlider(e.touches[0].clientX); });
+            // 01:05:09 ഈ രൂപത്തിലാക്കാൻ റെഗുലറൈസ് ചെയ്യുന്നു
+            hrs = hrs < 10 ? '0' + hrs : hrs;
+            mins = mins < 10 ? '0' + mins : mins;
+            secs = secs < 10 ? '0' + secs : secs;
+
+            document.getElementById('liveTimer').innerText = `${hrs}:${mins}:${secs}`;
+        }
+
+        // 5. TRIP അവസാനിപ്പിക്കുമ്പോൾ പൈസ കണക്കാക്കുന്നത് (Time-Based Calculation)
+        function endTrip() {
+            clearInterval(timerInterval);
+            let endTime = new Date();
+            let diff = endTime - startTime; // മില്ലിസെക്കൻഡ്
+
+            // മൊത്തം മിനിറ്റുകൾ ആക്കുന്നു
+            let totalMinutes = Math.floor(diff / (1000 * 60)); 
+            
+            // --- TEST ചെയ്യാനുള്ള എളുപ്പത്തിന് വേണ്ടി (ഒരു 135 മിനിറ്റ് ഓടി എന്ന് വിചാരിക്കുക അതായത് 2hr 15mins) ---
+            // നിനക്ക് ലൈവ് ആയി തന്നെ ചെക്ക് ചെയ്യണമെങ്കിൽ താഴത്തെ വരി കമന്റ് ചെയ്താൽ മതി
+            totalMinutes = 135; 
+
+            let finalHrs = Math.floor(totalMinutes / 60);
+            let finalMins = totalMinutes % 60;
+
+            // 💰 പൈസ കാൽക്കുലേഷൻ ലോജിക്
+            let finalFare = BASE_FARE;
+            let extraFare = 0;
+
+            if (totalMinutes > 60) {
+                let extraMinutes = totalMinutes - 60;
+                // മിനിറ്റുകളെ മണിക്കൂറിലേക്ക് മാറ്റി പെർ-അവർ റേറ്റ് കൊണ്ട് ഗുണിക്കുന്നു
+                extraFare = Math.ceil((extraMinutes / 60) * PER_HOUR_FARE);
+                finalFare += extraFare;
+            }
+
+            // സ്ക്രീനിൽ വിവരങ്ങൾ കാണിക്കുന്നു
+            document.getElementById('finalDuration').innerText = `${finalHrs} Std ${finalMins} Min`;
+            document.getElementById('extraFareCalc').innerText = `₹${extraFare}`;
+            document.getElementById('totalFareDisplay').innerText = `₹${finalFare}`;
+
+            // സ്ക്രീനുകൾ മാറ്റുന്നു
+            document.getElementById('activeTripState').classList.add('hidden');
+            document.getElementById('tripFooter').classList.add('hidden');
+            document.getElementById('fareScreen').classList.remove('hidden');
+
+            /* 
+              💡 ഇവിടെയാണ് നമ്മൾ ഗൂഗിൾ ഷീറ്റിലേക്ക് വിവരം അയക്കേണ്ടത്.
+              fetch('YOUR_GOOGLE_SCRIPT_URL', { method: 'POST', body: ... })
+            */
+        }
+
+        function closeFareScreen() {
+            document.getElementById('fareScreen').classList.add('hidden');
+            document.getElementById('noTripState').classList.remove('hidden');
+            document.getElementById('liveTimer').innerText = "00:00:00";
+        }
     </script>
 </body>
 </html>
